@@ -1,0 +1,3647 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="تیکا — پیام‌رسان لحظه‌ای سازمانی">
+<title>تیکا — پیام‌رسان لحظه‌ای</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aminabedi68/Peyda@main/dist/font-face.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>try { var __t = localStorage.getItem("tika_theme"); document.documentElement.setAttribute("data-theme", __t || "dark"); } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }</script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   Tika — design tokens. 3 themes via html[data-theme].
+   Every transition is limited to transform + opacity (no reflows).
+   ═══════════════════════════════════════════════════════════════ */
+:root, html[data-theme="dark"] {
+    /* Modern Dark (default) — rich slate/indigo */
+    --bg-image: radial-gradient(1000px 700px at 82% -12%, rgba(99, 102, 241, 0.10), transparent 55%), #0f172a;
+    --panel: #131c31;
+    --panel-2: #17223b;
+    --field: #1a2440;
+    --hover: #1e2a47;
+    --active: #243154;
+    --active-hover: #2b3a61;
+
+    --border: rgba(255, 255, 255, 0.08);
+    --border-2: rgba(255, 255, 255, 0.15);
+    --scrollbar: rgba(255, 255, 255, 0.14);
+    --scrollbar-hover: rgba(255, 255, 255, 0.24);
+    --scrim: rgba(2, 6, 23, 0.6);
+    --menu-bg: rgba(23, 34, 59, 0.95);
+    --header-bg: rgba(19, 28, 49, 0.8);
+    --chip-bg: rgba(255, 255, 255, 0.09);
+    --quote-bg: rgba(0, 0, 0, 0.25);
+    --quote-bg-hover: rgba(0, 0, 0, 0.38);
+
+    --text: #eef2f9;
+    --text-2: #9aa8c0;
+    --text-3: #64748b;
+
+    --accent: #6366f1;
+    --accent-press: #4f46e5;
+    --accent-soft: rgba(99, 102, 241, 0.18);
+    --accent-ring: rgba(99, 102, 241, 0.32);
+    --accent-shadow: rgba(99, 102, 241, 0.35);
+    --grad-primary: linear-gradient(135deg, #6366f1, #8b5cf6);
+    --grad-primary-hover: linear-gradient(135deg, #818cf8, #a78bfa);
+
+    --bubble-in: #1c2941;
+    --bubble-in-shadow: none;
+    --bubble-out: linear-gradient(135deg, #6366f1, #8b5cf6);
+    --bubble-out-border: rgba(255, 255, 255, 0.10);
+    --bubble-out-meta: rgba(255, 255, 255, 0.72);
+    --receipt-read: #7dd3fc;
+    --link-in: #93c5fd;
+
+    --danger: #f87171;
+    --danger-soft: rgba(248, 113, 113, 0.14);
+    --danger-border: rgba(248, 113, 113, 0.4);
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --warn-soft: rgba(251, 191, 36, 0.12);
+    --warn-border: rgba(251, 191, 36, 0.35);
+
+    --sc0: #8bb4f8; --sc1: #f0b26e; --sc2: #b5e08a; --sc3: #d8a0f0;
+    --sc4: #7fe0c4; --sc5: #f08aa8; --sc6: #9aa8f0; --sc7: #e8d87e;
+
+    --r-s: 8px;
+    --r-m: 12px;
+    --shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="glass"] {
+    /* Glassmorphism — sci-fi translucency, neon blue/violet borders */
+    --bg-image: radial-gradient(900px 620px at 85% -10%, rgba(99, 102, 241, 0.18), transparent 55%),
+                radial-gradient(820px 620px at 0% 100%, rgba(168, 85, 247, 0.14), transparent 55%),
+                radial-gradient(700px 500px at 50% 50%, rgba(56, 189, 248, 0.07), transparent 60%),
+                #070b14;
+    --panel: rgba(255, 255, 255, 0.045);
+    --panel-2: rgba(255, 255, 255, 0.06);
+    --field: rgba(255, 255, 255, 0.06);
+    --hover: rgba(255, 255, 255, 0.10);
+    --active: rgba(129, 140, 248, 0.16);
+    --active-hover: rgba(129, 140, 248, 0.24);
+
+    --border: rgba(148, 163, 255, 0.16);
+    --border-2: rgba(165, 180, 252, 0.30);
+    --scrollbar: rgba(165, 180, 252, 0.22);
+    --scrollbar-hover: rgba(165, 180, 252, 0.38);
+    --scrim: rgba(2, 6, 23, 0.55);
+    --menu-bg: rgba(17, 26, 41, 0.75);
+    --header-bg: rgba(8, 12, 22, 0.5);
+    --chip-bg: rgba(165, 180, 252, 0.14);
+    --quote-bg: rgba(2, 6, 23, 0.35);
+    --quote-bg-hover: rgba(2, 6, 23, 0.5);
+
+    --text: #eef2ff;
+    --text-2: #a5b4fc;
+    --text-3: #6d7aa8;
+
+    --accent: #818cf8;
+    --accent-press: #6366f1;
+    --accent-soft: rgba(129, 140, 248, 0.20);
+    --accent-ring: rgba(129, 140, 248, 0.35);
+    --accent-shadow: rgba(129, 140, 248, 0.30);
+    --grad-primary: linear-gradient(135deg, rgba(99, 102, 241, 0.85), rgba(168, 85, 247, 0.8));
+    --grad-primary-hover: linear-gradient(135deg, rgba(129, 140, 248, 0.9), rgba(192, 132, 252, 0.85));
+
+    --bubble-in: rgba(255, 255, 255, 0.07);
+    --bubble-in-shadow: none;
+    --bubble-out: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.45));
+    --bubble-out-border: rgba(165, 180, 252, 0.35);
+    --bubble-out-meta: rgba(224, 231, 255, 0.75);
+    --receipt-read: #7dd3fc;
+    --link-in: #a5b4fc;
+
+    --danger: #fb7185;
+    --danger-soft: rgba(251, 113, 133, 0.14);
+    --danger-border: rgba(251, 113, 133, 0.4);
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --warn-soft: rgba(251, 191, 36, 0.12);
+    --warn-border: rgba(251, 191, 36, 0.35);
+
+    --sc0: #93c5fd; --sc1: #fcd34d; --sc2: #a7f3d0; --sc3: #e9d5ff;
+    --sc4: #7fe0c4; --sc5: #fda4af; --sc6: #c7d2fe; --sc7: #fde68a;
+
+    --shadow-pop: 0 12px 40px rgba(2, 6, 23, 0.55), 0 0 0 1px rgba(129, 140, 248, 0.08);
+}
+
+html[data-theme="light"] {
+    /* Clean Light — crisp white/gray, vibrant blue accents */
+    --bg-image: radial-gradient(900px 500px at 82% -12%, rgba(37, 99, 235, 0.06), transparent 55%), #f8fafc;
+    --panel: #ffffff;
+    --panel-2: #ffffff;
+    --field: #f1f5f9;
+    --hover: #e8edf5;
+    --active: #dbeafe;
+    --active-hover: #cfe0fb;
+
+    --border: rgba(15, 23, 42, 0.10);
+    --border-2: rgba(15, 23, 42, 0.18);
+    --scrollbar: rgba(15, 23, 42, 0.22);
+    --scrollbar-hover: rgba(15, 23, 42, 0.34);
+    --scrim: rgba(15, 23, 42, 0.35);
+    --menu-bg: rgba(255, 255, 255, 0.98);
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --chip-bg: rgba(15, 23, 42, 0.06);
+    --quote-bg: rgba(15, 23, 42, 0.05);
+    --quote-bg-hover: rgba(15, 23, 42, 0.09);
+
+    --text: #0f172a;
+    --text-2: #475569;
+    --text-3: #94a3b8;
+
+    --accent: #2563eb;
+    --accent-press: #1d4ed8;
+    --accent-soft: rgba(37, 99, 235, 0.12);
+    --accent-ring: rgba(37, 99, 235, 0.25);
+    --accent-shadow: rgba(37, 99, 235, 0.25);
+    --grad-primary: linear-gradient(135deg, #2563eb, #4f46e5);
+    --grad-primary-hover: linear-gradient(135deg, #3b82f6, #6366f1);
+
+    --bubble-in: #ffffff;
+    --bubble-in-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    --bubble-out: linear-gradient(135deg, #2563eb, #4f46e5);
+    --bubble-out-border: rgba(255, 255, 255, 0.2);
+    --bubble-out-meta: rgba(255, 255, 255, 0.78);
+    --receipt-read: #0284c7;
+    --link-in: #2563eb;
+
+    --danger: #dc2626;
+    --danger-soft: rgba(220, 38, 38, 0.10);
+    --danger-border: rgba(220, 38, 38, 0.4);
+    --ok: #16a34a;
+    --warn: #b45309;
+    --warn-soft: rgba(217, 119, 6, 0.12);
+    --warn-border: rgba(217, 119, 6, 0.35);
+
+    --sc0: #2563eb; --sc1: #b45309; --sc2: #15803d; --sc3: #7e22ce;
+    --sc4: #0f766e; --sc5: #be185d; --sc6: #4338ca; --sc7: #a16207;
+
+    --shadow-pop: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    min-height: 100dvh;
+    margin: 0;
+}
+
+body {
+    background: var(--bg-image);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: "Peyda", -apple-system, "Segoe UI", Tahoma, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+}
+
+::selection { background: var(--accent-ring); color: #fff; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+* { scrollbar-width: thin; scrollbar-color: var(--scrollbar) transparent; }
+
+input, textarea, select, button { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+img { display: block; }
+
+.icon { display: inline-block; flex: none; vertical-align: middle; }
+.i14 { width: 14px; height: 14px; }
+.i16 { width: 16px; height: 16px; }
+.i18 { width: 18px; height: 18px; }
+.i20 { width: 20px; height: 20px; }
+.i24 { width: 24px; height: 24px; }
+
+.hidden { display: none !important; }
+.grow { flex: 1; min-width: 0; }
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--active);
+    border: 1px solid var(--border);
+    border-radius: var(--r-s);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.btn:hover { background: var(--active-hover); }
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+
+.btn-primary {
+    background-image: var(--grad-primary);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 14px var(--accent-shadow);
+}
+.btn-primary:hover { background-image: var(--grad-primary-hover); }
+
+.btn-danger { background: transparent; border-color: var(--danger-border); color: var(--danger); }
+.btn-danger:hover { background: var(--danger-soft); }
+
+.btn-block { width: 100%; padding-block: 12px; }
+
+.iconbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--r-s);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.iconbtn:hover { background: var(--hover); color: var(--text); }
+.iconbtn:active { transform: scale(0.94); }
+
+.chip-btn {
+    padding: 4px 8px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-s);
+    color: var(--text-2);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.chip-btn:hover { color: var(--text); background: var(--hover); }
+.chip-btn:active { transform: scale(0.96); }
+.chip-btn.chip-danger { color: var(--danger); border-color: var(--danger-border); }
+.chip-btn.chip-danger:hover { background: var(--danger-soft); }
+
+/* ── Fields ──────────────────────────────────────────────────── */
+.field-label {
+    display: block;
+    margin: 0 4px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-2);
+}
+.field {
+    width: 100%;
+    padding: 11px 12px;
+    background: var(--field);
+    border: 1px solid var(--border);
+    border-radius: var(--r-s);
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+}
+.field::placeholder { color: var(--text-3); }
+.field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+textarea.field { resize: vertical; min-height: 64px; }
+
+select.field { color-scheme: dark; appearance: none; cursor: pointer; }
+select.field option { background: var(--panel-2); color: var(--text); }
+
+.field-wrap { position: relative; display: flex; align-items: center; }
+.field-wrap .field { padding-inline-end: 44px; }
+
+/* Password eye — pinned to the inline end, optically centered */
+.eye-btn {
+    position: absolute;
+    inset-inline-end: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.eye-btn:hover { color: var(--text-2); background: var(--hover); }
+.eye-btn:active { transform: translateY(-50%) scale(0.92); }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 60px var(--field) inset !important;
+    -webkit-text-fill-color: var(--text) !important;
+    caret-color: var(--text);
+    transition: background-color 9999s ease-out 0s;
+}
+
+.form-err { margin: 0; font-size: 12px; color: var(--danger); }
+.form-hint { margin: 4px 4px 0; font-size: 11px; color: var(--text-3); }
+
+/* Segmented control */
+.seg {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--field);
+    border: 1px solid var(--border);
+    border-radius: var(--r-s);
+}
+.seg-btn {
+    flex: 1;
+    padding: 8px 4px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-2);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.seg-btn:active { transform: scale(0.97); }
+.seg-btn.on, .seg-btn[aria-pressed="true"] {
+    background-image: var(--grad-primary);
+    color: #fff;
+    box-shadow: 0 2px 8px var(--accent-shadow);
+}
+
+/* ── Auth view ───────────────────────────────────────────────── */
+#auth-view {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--r-m);
+}
+.auth-head { margin-bottom: 20px; text-align: center; }
+.auth-head img { width: 56px; height: 56px; margin: 0 auto 12px; border-radius: var(--r-m); }
+.auth-head h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: var(--text); }
+.auth-head p { margin: 4px 0 0; font-size: 12px; color: var(--text-3); }
+.auth-card form { display: none; }
+.auth-card form.open { display: block; }
+.auth-form > * + * { margin-top: 12px; }
+#login-form > * + *, #register-form > * + *, #reset-form > * + * { margin-top: 12px; }
+.auth-alt { margin-top: 16px; text-align: center; font-size: 12px; color: var(--text-3); }
+.auth-alt a, .linkish { color: var(--accent); cursor: pointer; }
+.auth-alt a:hover, .linkish:hover { text-decoration: underline; }
+.modal p.sub { margin: 0 0 12px; font-size: 12px; line-height: 1.7; color: var(--text-2); }
+
+/* ── App frame ───────────────────────────────────────────────── */
+#chat-view, #admin-view {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+}
+.app {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    background: transparent;
+}
+
+/* Sidebar — first in DOM → sits on the right in RTL */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+    flex-shrink: 0;
+    background: var(--panel);
+    border-inline-end: 1px solid var(--border);
+    transition: transform 0.24s cubic-bezier(0.32, 0.72, 0.3, 1);
+}
+.sidebar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 16px;
+}
+.sidebar-head h2 { margin: 0; font-size: 16px; font-weight: 700; }
+.sidebar-tools { display: flex; gap: 4px; }
+
+.side-search { position: relative; padding: 0 12px 8px; }
+.side-search .icon {
+    position: absolute;
+    top: 21px;
+    inset-inline-start: 22px;
+    color: var(--text-3);
+    pointer-events: none;
+}
+.side-search .field { padding-inline-start: 38px; padding-block: 9px; border-radius: 10px; }
+.side-search .field:focus { box-shadow: none; background: var(--hover); }
+
+.search-pop {
+    position: absolute;
+    top: calc(100% + 4px);
+    inset-inline: 12px;
+    z-index: 30;
+    max-height: 280px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: var(--panel-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    box-shadow: var(--shadow-pop);
+    padding: 4px;
+}
+.search-row {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    text-align: start;
+    font-size: 12px;
+    color: var(--text);
+    cursor: pointer;
+}
+.search-row:hover { background: var(--hover); }
+.search-row .muted { color: var(--text-3); }
+
+.room-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 8px;
+}
+.room-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    text-align: start;
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.room-item:hover { background: var(--hover); }
+.room-item.current { background: var(--active); box-shadow: inset 0 0 0 1px var(--accent-ring); }
+.room-item.pending-room { opacity: 0.55; }
+.avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--active);
+    font-size: 20px;
+    overflow: hidden;
+    user-select: none;
+    border: none;
+    padding: 0;
+    color: var(--text-2);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-sm { width: 38px; height: 38px; font-size: 17px; }
+.avatar-xs { width: 30px; height: 30px; font-size: 13px; }
+.unread-dot {
+    position: absolute;
+    top: -2px;
+    inset-inline-start: -2px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    background-image: var(--grad-primary);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+}
+.room-meta { flex: 1; min-width: 0; }
+.room-row1 { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.room-name { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.room-time { font-size: 10px; color: var(--text-3); flex-shrink: 0; }
+.room-snippet { margin: 1px 0 0; font-size: 12px; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.room-empty { padding: 24px 12px; text-align: center; font-size: 12px; color: var(--text-3); }
+
+.conn-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 12px 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--warn-border);
+    border-radius: var(--r-s);
+    background: var(--warn-soft);
+    color: var(--warn);
+    font-size: 12px;
+}
+.conn-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warn); animation: soft-blink 1.4s ease-in-out infinite; }
+@keyframes soft-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+.sidebar-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+}
+.sidebar-foot .who { flex: 1; min-width: 0; cursor: pointer; border-radius: 6px; padding: 4px 6px; }
+.sidebar-foot .who:hover { background: var(--hover); }
+.presence-dot {
+    position: absolute;
+    bottom: 0;
+    inset-inline-end: 0;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--panel);
+    border-radius: 50%;
+    background: var(--ok);
+}#sidebar-name { margin: 0; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#sidebar-status { margin: 0; font-size: 11px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#sidebar-status.status-online { color: var(--ok); }
+
+.sidebar-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 28;
+    background: var(--scrim);
+    border: none;
+    padding: 0;
+    cursor: default;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease;
+}
+.sidebar-scrim.show { opacity: 1; pointer-events: auto; }
+
+/* ── Chat pane ───────────────────────────────────────────────── */
+.chat-pane {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    background: transparent;
+}
+
+.chat-header {
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: 56px;
+    padding: 0 12px 0 16px;
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(12px) saturate(1.15);
+    backdrop-filter: blur(12px) saturate(1.15);
+    border-bottom: 1px solid var(--border);
+}
+.chat-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.chat-title .meta { min-width: 0; }
+#current-room-name { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#room-verified { color: var(--accent); font-size: 12px; }
+#room-subtitle { margin: 0; font-size: 11px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#typing-indicator { margin: 0; font-size: 11px; color: var(--accent); }
+#btn-back { display: none; }
+.header-actions { display: flex; gap: 4px; }
+
+.in-chat-search {
+    position: absolute;
+    top: 56px;
+    inset-inline: 0;
+    z-index: 6;
+    padding: 8px 12px;
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(12px) saturate(1.15);
+    backdrop-filter: blur(12px) saturate(1.15);
+    border-bottom: 1px solid var(--border);
+}
+
+.pinned-bar {
+    position: absolute;
+    top: 64px;
+    inset-inline: 12px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-s);
+    font-size: 12px;
+    color: var(--text-2);
+}
+.pinned-bar .grow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pinned-bar button { background: none; border: none; color: var(--text-3); cursor: pointer; padding: 2px; display: inline-flex; }
+.pinned-bar button:hover { color: var(--text); }
+
+/* Message feed — one scroll container spanning the whole pane */
+#message-list {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 68px 16px 92px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.msg-row {
+    display: flex;
+    width: 100%;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 64px;
+}
+.msg-row.mine { justify-content: flex-start; }   /* RTL: flex-start = right side */
+.msg-row.theirs { justify-content: flex-end; }   /* RTL: flex-end  = left side  */
+
+@keyframes msg-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.msg-in { animation: msg-in 0.18s ease-out both; }
+
+.day-chip { display: flex; justify-content: center; margin: 12px 0; }
+.day-chip span {
+    padding: 3px 12px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    font-size: 11px;
+    color: var(--text-3);
+}
+
+.bubble {
+    position: relative;
+    max-width: min(78%, 560px);
+    padding: 8px 12px;
+    border-radius: var(--r-m);
+    font-size: 14px;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    cursor: pointer;
+}
+.bubble-in {
+    background: var(--bubble-in);
+    border: 1px solid var(--border);
+    border-top-right-radius: 4px;
+    color: var(--text);
+    box-shadow: var(--bubble-in-shadow);
+}
+.bubble-out {
+    background: var(--bubble-out);
+    border: 1px solid var(--bubble-out-border);
+    border-top-left-radius: 4px;
+    color: #f2f6fb;
+    box-shadow: 0 4px 14px var(--accent-shadow);
+}
+.bubble.pending { opacity: 0.72; }
+.bubble.failed { opacity: 0.9; border-color: var(--danger-border); }
+
+.bubble .sender-name { display: block; margin-bottom: 1px; font-size: 12px; font-weight: 700; }
+.bubble .fwd-note { margin: 0 0 2px; font-size: 10px; color: var(--text-3); }
+.bubble p { margin: 0; white-space: pre-wrap; }
+.bubble a.txtlink { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; word-break: break-all; }
+.bubble-in a.txtlink { color: var(--link-in); }
+
+.reply-quote {
+    margin: 2px 0 6px;
+    padding: 4px 8px;
+    border-inline-start: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--quote-bg);
+    font-size: 11px;
+    line-height: 1.5;
+}
+.reply-quote b { display: block; color: var(--accent); font-weight: 700; }
+.reply-quote span { color: var(--text-2); }
+
+.bubble img.pic {
+    max-height: 320px;
+    max-width: 100%;
+    width: auto;
+    border-radius: 8px;
+    margin: 2px 0 4px;
+    cursor: zoom-in;
+}
+
+.voice-player { display: flex; align-items: center; gap: 8px; direction: ltr; min-width: 200px; }
+.vp-play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background-image: var(--grad-primary);
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+}
+.vp-play:active { transform: scale(0.92); }
+.wavebars { display: flex; align-items: center; gap: 2px; height: 26px; overflow: hidden; flex: 1; max-width: 170px; }
+.wfbar { width: 3px; border-radius: 2px; background: currentColor; opacity: 0.45; flex: none; }
+.wfbar.played { opacity: 1; }
+.vp-time { font-size: 10px; font-variant-numeric: tabular-nums; opacity: 0.7; }
+
+.file-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 2px 0 4px;
+    padding: 8px 10px;
+    background: var(--quote-bg);
+    border-radius: var(--r-s);
+    cursor: pointer;
+}
+.file-card:hover { background: var(--quote-bg-hover); }
+.file-card .icon { color: var(--accent); }
+.file-name { display: block; max-width: 180px; font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; direction: ltr; text-align: left; }
+.file-mime { display: block; font-size: 10px; color: var(--text-3); direction: ltr; text-align: left; }
+
+.sticker { font-size: 52px; line-height: 1.15; padding: 4px 2px; margin: 0; }
+.sticker-loc { font-size: 14px; }
+
+.reactions { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.react-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: var(--chip-bg);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    font-size: 11px;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.react-chip:active { transform: scale(0.95); }
+.react-chip.mine { background: var(--accent-soft); border-color: var(--accent-ring); }
+
+.bubble-foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 2px;
+    font-size: 10px;
+    color: var(--text-3);
+}
+.bubble-out .bubble-foot { color: var(--bubble-out-meta); }
+.bubble-foot .receipt { display: inline-flex; align-items: center; }
+.bubble-foot .receipt .icon { width: 14px; height: 14px; }
+.receipt .rc-read { color: var(--receipt-read); }
+.receipt .rc-fail { color: var(--danger); }
+
+.typing-bar { position: absolute; bottom: 84px; inset-inline: 16px; z-index: 5; font-size: 11px; color: var(--accent); }
+
+.empty-state {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    pointer-events: none;
+    color: var(--text-3);
+}
+.empty-state img { width: 56px; height: 56px; border-radius: var(--r-m); opacity: 0.85; }
+.empty-state .t1 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text-2); }
+.empty-state .t2 { margin: 0; font-size: 12px; }
+
+/* Composer */
+.composer {
+    position: absolute;
+    bottom: 0;
+    inset-inline: 0;
+    z-index: 6;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(12px) saturate(1.15);
+    backdrop-filter: blur(12px) saturate(1.15);
+    border-top: 1px solid var(--border);
+}
+.composer-input { position: relative; flex: 1; min-width: 0; }
+#chat-input {
+    width: 100%;
+    padding: 11px 44px 11px 14px;
+    background: var(--field);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+}
+#chat-input::placeholder { color: var(--text-3); }
+#chat-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+#chat-input:disabled { opacity: 0.6; }
+#btn-emoji {
+    position: absolute;
+    inset-inline-end: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--text-3);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: inline-flex;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+#btn-emoji:hover { color: var(--text-2); }
+#btn-emoji:active { transform: translateY(-50%) scale(0.92); }
+#btn-send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background-image: var(--grad-primary);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 14px var(--accent-shadow);
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+#btn-send:hover { background-image: var(--grad-primary-hover); }
+#btn-send:active { transform: scale(0.92); }
+#btn-send:disabled { opacity: 0.5; cursor: default; transform: none; }
+#btn-send .icon { transform: scaleX(-1); }
+
+.emoji-tray {
+    position: absolute;
+    bottom: 64px;
+    inset-inline-end: 60px;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 2px;
+    width: 304px;
+    padding: 8px;
+    background: var(--panel-2);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-m);
+    box-shadow: var(--shadow-pop);
+}
+.emoji-tray button {
+    padding: 4px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 22px;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+}
+.emoji-tray button:hover { background: var(--hover); }
+.emoji-tray button:active { transform: scale(1.15); }
+
+.reply-bar {
+    position: absolute;
+    bottom: 72px;
+    inset-inline: 12px;
+    z-index: 7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--panel-2);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-s);
+    font-size: 12px;
+    box-shadow: var(--shadow-pop);
+}
+#reply-to-name { margin: 0; font-weight: 700; color: var(--accent); font-size: 12px; }
+#reply-to-text { margin: 0; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reply-bar button, .icon-x {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    cursor: pointer;
+    padding: 2px 4px;
+    display: inline-flex;
+}
+.reply-bar button:hover { color: var(--text); }
+
+/* Theme switcher */
+.theme-tray {
+    position: absolute;
+    top: 56px;
+    inset-inline-end: 12px;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 216px;
+    padding: 6px;
+    background: var(--menu-bg);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-m);
+    box-shadow: var(--shadow-pop);
+}
+.theme-opt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    text-align: start;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.theme-opt:hover { background: var(--hover); }
+.theme-opt:active { transform: scale(0.98); }
+.theme-opt .theme-icon { color: var(--text-2); }
+.theme-opt .theme-check { margin-inline-start: auto; visibility: hidden; color: var(--accent); }
+.theme-opt.on { background: var(--accent-soft); }
+.theme-opt.on .theme-icon, .theme-opt.on .theme-check { color: var(--accent); }
+.theme-opt.on .theme-check { visibility: visible; }
+.theme-opt .sw-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex: none;
+    border: 1px solid var(--border-2);
+}
+
+/* ── Context menu ────────────────────────────────────────────── */
+.ctx-menu {
+    position: fixed;
+    z-index: 55;
+    width: 220px;
+    padding: 4px;
+    background: var(--menu-bg);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    box-shadow: var(--shadow-pop);
+}
+.ctx-reacts { display: flex; justify-content: space-between; gap: 2px; padding: 2px 4px 6px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
+.ctx-reacts button { padding: 2px 4px; background: none; border: none; font-size: 18px; cursor: pointer; border-radius: 6px; transition: transform 0.12s ease; }
+.ctx-reacts button:hover { transform: scale(1.2); }
+.ctx-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 10px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    text-align: start;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+}
+.ctx-item:hover { background: var(--hover); }
+.ctx-item .icon { color: var(--text-2); }
+.ctx-item.danger, .ctx-item.danger .icon { color: var(--danger); }
+
+/* ── Modal ───────────────────────────────────────────────────── */
+#modal-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: var(--scrim);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+.modal {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    max-height: 86dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    background: var(--panel-2);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-m);
+    box-shadow: var(--shadow-pop);
+}
+@keyframes pop-in {
+    from { opacity: 0; transform: scale(0.97) translateY(4px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.pop-in { animation: pop-in 0.16s ease-out both; }
+.modal h3 { margin: 0 0 12px; font-size: 15px; font-weight: 700; }
+.modal-x {
+    position: absolute;
+    top: 10px;
+    inset-inline-start: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-3);
+    cursor: pointer;
+}
+.modal-x:hover { background: var(--hover); color: var(--text); }
+.modal .row2 { display: flex; gap: 8px; margin-top: 16px; }
+.modal .row2 > * { flex: 1; }
+
+.menu-list { display: flex; flex-direction: column; gap: 2px; }
+.menu-list .ctx-item { padding: 10px 12px; }
+
+.member-row, .session-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: var(--r-s);
+    font-size: 12px;
+}
+.member-row:hover { background: var(--hover); }
+.member-row .uname, .session-row .sub { color: var(--text-3); font-size: 11px; }
+.role-tag {
+    padding: 2px 8px;
+    background: var(--field);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 10px;
+    color: var(--text-2);
+    flex-shrink: 0;
+}
+.code-box {
+    padding: 10px;
+    background: var(--field);
+    border: 1px solid var(--border);
+    border-radius: var(--r-s);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-align: center;
+    direction: ltr;
+    user-select: all;
+}
+
+/* ── Drawer (settings) ───────────────────────────────────────── */
+#drawer-layer { position: fixed; inset: 0; z-index: 40; pointer-events: none; }
+#drawer-layer.on { pointer-events: auto; }
+.drawer-scrim { position: absolute; inset: 0; background: var(--scrim); border: none; padding: 0; cursor: default; }
+.drawer-panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: min(400px, 100vw);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background: var(--panel);
+    border-inline-start: 1px solid var(--border-2);
+    transform: translateX(105%);
+    transition: transform 0.26s cubic-bezier(0.32, 0.72, 0.3, 1);
+}
+.drawer-panel.open { transform: translateX(0); }
+.drawer-head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+.drawer-head h3 { margin: 0; flex: 1; font-size: 14px; font-weight: 700; }
+.drawer-body { padding: 16px; }
+.drawer-body .stack > * + * { margin-top: 12px; }
+.profile-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.profile-head .who { flex: 1; min-width: 0; }
+.profile-head .who b { display: block; font-size: 14px; }
+.profile-head .who span { display: block; font-size: 11px; color: var(--text-3); direction: ltr; text-align: end; }
+.settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 13px;
+    padding: 4px 0;
+}
+.settings-row input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px; }
+.list-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 11px 12px;
+    background: var(--field);
+    border: 1px solid var(--border);
+    border-radius: var(--r-s);
+    text-align: start;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.list-btn:hover { background: var(--hover); }
+.list-btn:active { transform: scale(0.99); }
+.list-btn .icon { color: var(--text-2); }
+.list-btn.danger { color: var(--danger); border-color: var(--danger-border); }
+.list-btn.danger .icon { color: var(--danger); }
+.drawer-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+/* ── Theme-specific structural overrides ─────────────────────── */
+html[data-theme="glass"] .sidebar,
+html[data-theme="glass"] .auth-card,
+html[data-theme="glass"] .modal,
+html[data-theme="glass"] .admin-card,
+html[data-theme="glass"] .admin-card-head,
+html[data-theme="glass"] .stat-card,
+html[data-theme="glass"] .toast,
+html[data-theme="glass"] .emoji-tray,
+html[data-theme="glass"] .reply-bar,
+html[data-theme="glass"] .pinned-bar,
+html[data-theme="glass"] .drawer-panel,
+html[data-theme="glass"] .search-pop,
+html[data-theme="glass"] .theme-tray,
+html[data-theme="glass"] .day-chip span,
+html[data-theme="glass"] .member-row[style],
+html[data-theme="glass"] .session-row[style] {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(12px) saturate(1.3);
+    backdrop-filter: blur(12px) saturate(1.3);
+}
+html[data-theme="glass"] .bubble-in,
+html[data-theme="glass"] .bubble-out {
+    -webkit-backdrop-filter: blur(12px) saturate(1.3);
+    backdrop-filter: blur(12px) saturate(1.3);
+}
+html[data-theme="glass"] .drawer-head,
+html[data-theme="glass"] .chat-header,
+html[data-theme="glass"] .in-chat-search,
+html[data-theme="glass"] .composer {
+    -webkit-backdrop-filter: blur(14px) saturate(1.35);
+    backdrop-filter: blur(14px) saturate(1.35);
+}
+html[data-theme="glass"] .code-box,
+html[data-theme="glass"] .role-tag {
+    background: rgba(255, 255, 255, 0.06);
+}
+html[data-theme="light"] .side-search .field:focus,
+html[data-theme="light"] #chat-input:focus {
+    background: #ffffff;
+}
+
+/* ── Admin ───────────────────────────────────────────────────── */
+#admin-view { z-index: 40; }
+.admin-wrap {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px;
+    background: transparent;
+}
+.admin-inner { max-width: 960px; margin: 0 auto; }
+.admin-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+.admin-head h1 { margin: 0; font-size: 20px; font-weight: 800; }
+.admin-head p { margin: 2px 0 0; font-size: 12px; color: var(--text-3); }
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card { padding: 16px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--r-m); }
+.stat-card .k { margin: 0; font-size: 11px; color: var(--text-3); }
+.stat-card .v { margin: 4px 0 0; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.admin-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.admin-card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r-m); overflow: hidden; }
+.admin-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--panel-2); }
+.admin-card-head h2 { margin: 0; font-size: 14px; font-weight: 700; }
+.admin-card-head .field { width: 200px; padding-block: 7px; }
+.admin-users { max-height: 420px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.user-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+.user-row:last-child { border-bottom: none; }
+.user-row .grow { flex: 1; min-width: 150px; }
+.user-row b { display: block; font-size: 12px; font-weight: 700; }
+.user-row .sub { display: block; font-size: 10px; color: var(--text-3); direction: ltr; text-align: end; }
+.ban-tag { padding: 2px 6px; border-radius: 6px; background: var(--danger-soft); color: var(--danger); font-size: 9px; font-weight: 700; }
+select.chip-btn { appearance: none; color-scheme: dark; cursor: pointer; }
+select.chip-btn option { background: var(--panel-2); }
+.admin-empty { padding: 20px; text-align: center; font-size: 12px; color: var(--text-3); }
+
+/* ── Toast ───────────────────────────────────────────────────── */
+#toast-layer {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: min(92vw, 400px);
+    pointer-events: none;
+}
+@keyframes toast-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--panel-2);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-s);
+    box-shadow: var(--shadow-pop);
+    font-size: 13px;
+    animation: toast-in 0.18s ease-out both;
+}
+.toast .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.toast.out { opacity: 0; transition: opacity 0.25s ease; }
+
+/* Voice record pulse — opacity only */
+@keyframes rec-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.recording { color: var(--danger) !important; animation: rec-pulse 1s ease-in-out infinite; }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    .sidebar {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 29;
+        width: min(86vw, 340px);
+        box-shadow: var(--shadow-pop);
+    }
+    .sidebar.closed { transform: translateX(105%); }
+    #btn-back { display: inline-flex; }
+    .bubble { max-width: 86%; }
+    .stat-grid { grid-template-columns: 1fr; }
+    .admin-wrap { padding: 16px; }
+    .admin-card-head .field { width: 140px; }
+    .theme-tray { inset-inline-end: 8px; }
+    .emoji-tray { inset-inline-end: 8px; width: min(304px, calc(100vw - 24px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
+</head>
+<body>
+<!-- ══════════════════ AUTH VIEW ══════════════════ -->
+<div id="auth-view" class="hidden">
+    <div class="auth-card">
+        <div class="auth-head">
+            <img src="/icon-192.png" alt="Tika">
+            <h1>تیکا</h1>
+            <p>پیام‌رسان لحظه‌ای سازمانی</p>
+        </div>
+
+        <div class="seg" role="tablist">
+            <button type="button" data-authtab="login" class="authtab seg-btn on" role="tab">ورود</button>
+            <button type="button" data-authtab="register" class="authtab seg-btn" role="tab">ثبت‌نام</button>
+            <button type="button" data-authtab="reset" class="authtab seg-btn" role="tab">بازیابی</button>
+        </div>
+
+        <!-- LOGIN -->
+        <form id="login-form" class="authform open" onsubmit="event.preventDefault();">
+            <div>
+                <label for="login-identifier" class="field-label">ایمیل، شماره یا نام کاربری</label>
+                <input type="text" id="login-identifier" class="field" placeholder="yasin / you@example.com / +98…" autocomplete="username">
+            </div>
+            <div>
+                <label for="login-password" class="field-label">رمز عبور</label>
+                <div class="field-wrap">
+                    <input type="password" id="login-password" class="field" placeholder="••••••••" autocomplete="current-password">
+                    <button type="button" id="login-eye" tabindex="-1" title="نمایش/مخفی کردن رمز" class="eye-btn" aria-label="نمایش رمز">
+                        <i data-lucide="eye" class="icon i18"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="login-2fa" class="hidden">
+                <label for="login-2fa-code" class="field-label">کد دو مرحله‌ای (2FA)</label>
+                <input type="text" id="login-2fa-code" class="field" inputmode="numeric" maxlength="6" dir="ltr" placeholder="──────" style="text-align:center;letter-spacing:.5em">
+            </div>
+            <p id="login-error" class="form-err hidden"></p>
+            <button type="submit" id="btn-login" class="btn btn-primary btn-block">ورود به تیکا</button>
+            <p class="auth-alt">رمزت را فراموش کردی؟ <a href="#" id="link-to-reset">بازیابی رمز عبور</a></p>
+        </form>
+
+        <!-- REGISTER -->
+        <form id="register-form" class="authform" onsubmit="event.preventDefault();">
+            <div>
+                <label for="reg-display" class="field-label">نام نمایشی</label>
+                <input type="text" id="reg-display" class="field" placeholder="مثلاً یاسین محمدی">
+            </div>
+            <div>
+                <label for="reg-username" class="field-label">نام کاربری</label>
+                <input type="text" id="reg-username" class="field" dir="ltr" placeholder="username" autocomplete="off">
+                <p id="reg-username-hint" class="form-hint hidden"></p>
+            </div>
+            <div>
+                <label for="reg-email" class="field-label">ایمیل</label>
+                <input type="email" id="reg-email" class="field" dir="ltr" placeholder="you@example.com">
+            </div>
+            <div>
+                <label for="reg-phone" class="field-label">شماره موبایل</label>
+                <div style="display:flex;gap:8px" dir="ltr">
+                    <select id="reg-dial" class="field" style="width:120px;flex-shrink:0">
+                        <option value="+98" selected>🇮🇷 +98</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+90">🇹🇷 +90</option>
+                        <option value="+49">🇩🇪 +49</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+1-ca">🇨🇦 +1</option>
+                    </select>
+                    <input type="tel" id="reg-phone" class="field" style="flex:1;min-width:0" placeholder="912 345 6789">
+                </div>
+            </div>
+            <div>
+                <span class="field-label">جنسیت</span>
+                <div class="seg">
+                    <button type="button" data-gender="male" class="gender-opt seg-btn" aria-pressed="false">مرد</button>
+                    <button type="button" data-gender="female" class="gender-opt seg-btn" aria-pressed="false">زن</button>
+                    <button type="button" data-gender="unspecified" class="gender-opt seg-btn" aria-pressed="true">ترجیح می‌دهم</button>
+                </div>
+            </div>
+            <div>
+                <label for="reg-password" class="field-label">رمز عبور</label>
+                <div class="field-wrap">
+                    <input type="password" id="reg-password" class="field" placeholder="حداقل ۸ کاراکتر" autocomplete="new-password">
+                    <button type="button" id="reg-eye" tabindex="-1" title="نمایش/مخفی کردن رمز" class="eye-btn" aria-label="نمایش رمز">
+                        <i data-lucide="eye" class="icon i18"></i>
+                    </button>
+                </div>
+            </div>
+            <p id="register-error" class="form-err hidden"></p>
+            <button type="submit" id="btn-register" class="btn btn-primary btn-block">ساخت حساب کاربری</button>
+            <p class="auth-alt">قبلاً ثبت‌نام کردی؟ <a href="#" id="link-to-login">ورود</a></p>
+        </form>
+
+        <!-- RESET -->
+        <form id="reset-form" class="authform" onsubmit="event.preventDefault();">
+            <div id="reset-step-1">
+                <p style="font-size:12px;line-height:1.7;color:var(--text-2);margin:0 0 12px">ایمیل، شماره یا نام کاربری‌ات را وارد کن. اگر حساب موجود باشد، لینک بازیابی صادر می‌شود (در استقرار توسعه: کنسول سرور).</p>
+                <input type="text" id="reset-identifier" class="field" placeholder="yasin / you@example.com / +98…">
+                <p id="reset-error" class="form-err hidden" style="margin-top:8px"></p>
+                <button type="button" id="btn-forgot" class="btn btn-primary btn-block" style="margin-top:12px">ارسال لینک بازیابی</button>
+            </div>
+            <div id="reset-step-2" class="hidden">
+                <p style="font-size:12px;line-height:1.7;color:var(--text-2);margin:0 0 12px">لینک بازیابی دریافتی را کامل اینجا بچسبان (شامل توکن و شناسه کاربر):</p>
+                <input type="text" id="reset-link" class="field" dir="ltr" placeholder="https://…/reset-password?token=…&user=…" style="font-size:12px">
+                <input type="password" id="reset-newpass" class="field" placeholder="رمز عبور جدید (۸+ کاراکتر)" style="margin-top:12px">
+                <p id="reset2-error" class="form-err hidden" style="margin-top:8px"></p>
+                <button type="button" id="btn-reset" class="btn btn-primary btn-block" style="margin-top:12px">تغییر رمز عبور</button>
+            </div>
+            <p class="auth-alt"><a href="#" id="link-back-login">بازگشت به ورود</a></p>
+        </form>
+    </div>
+</div>
+
+<!-- ══════════════════ MAIN CHAT VIEW ══════════════════ -->
+<div id="chat-view" class="hidden">
+    <div class="app">
+
+        <!-- ── Sidebar (right side in RTL, first in DOM) ── -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-head">
+                <h2>گفتگوها</h2>
+                <div class="sidebar-tools">
+                    <button id="btn-new-room" class="iconbtn" title="گفتگوی جدید" aria-label="گفتگوی جدید">
+                        <i data-lucide="plus" class="icon i20"></i>
+                    </button>
+                    <button id="btn-theme" class="iconbtn" title="تغییر تم" aria-label="تغییر تم">
+                        <i data-lucide="droplet" class="icon i20"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="side-search">
+                <i data-lucide="search" class="icon i16"></i>
+                <input type="text" id="global-search" class="field" placeholder="جستجوی سراسری…" autocomplete="off">
+                <div id="search-results" class="search-pop hidden"></div>
+            </div>
+
+            <div id="room-list" class="room-list"></div>
+
+            <div id="connection-banner" class="conn-banner hidden">
+                <span class="conn-dot"></span>
+                <span>اتصال قطع است — تلاش برای اتصال مجدد…</span>
+            </div>
+
+            <div class="sidebar-foot">
+                <button id="btn-my-avatar" class="avatar avatar-sm" style="cursor:pointer" aria-label="پروفایل من">
+                    <span id="my-avatar-inner">👤</span>
+                    <span class="presence-dot"></span>
+                </button>
+                <div id="btn-open-settings" class="who">
+                    <h4 id="sidebar-name">—</h4>
+                    <p id="sidebar-status" class="status-online">آنلاین</p>
+                </div>
+                <button id="btn-settings" class="iconbtn" title="تنظیمات" aria-label="تنظیمات">
+                    <i data-lucide="sliders" class="icon i18"></i>
+                </button>
+                <button id="btn-logout" class="iconbtn" title="خروج" aria-label="خروج">
+                    <i data-lucide="logout" class="icon i18"></i>
+                </button>
+            </div>
+        </aside>
+        <button id="sidebar-scrim" class="sidebar-scrim" tabindex="-1" aria-hidden="true"></button>
+
+        <!-- ── Chat pane (left side in RTL) ── -->
+        <main class="chat-pane">
+            <div id="message-list" aria-live="polite"></div>
+
+            <header id="room-header" class="chat-header">
+                <div class="chat-title">
+                    <button id="btn-back" class="iconbtn" aria-label="بازگشت">
+                        <i data-lucide="arrow-right" class="icon i20"></i>
+                    </button>
+                    <div id="room-avatar" class="avatar avatar-sm">👥</div>
+                    <div class="meta">
+                        <div style="display:flex;align-items:center;gap:6px">
+                            <h2 id="current-room-name">تیکا</h2>
+                            <span id="room-verified" class="hidden">✔︎</span>
+                        </div>
+                        <p id="typing-indicator" class="hidden"></p>
+                        <p id="room-subtitle"></p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="btn-chat-search" class="iconbtn" title="جستجو در گفتگو" aria-label="جستجو در گفتگو">
+                        <i data-lucide="search" class="icon i18"></i>
+                    </button>
+                    <button id="btn-room-menu" class="iconbtn" title="اطلاعات گفتگو" aria-label="اطلاعات گفتگو">
+                        <i data-lucide="info" class="icon i18"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div id="chat-search-bar" class="in-chat-search hidden">
+                <input type="text" id="chat-search-input" class="field" placeholder="فیلتر پیام‌های این گفتگو…" autocomplete="off">
+            </div>
+
+            <div id="pinned-bar" class="pinned-bar hidden">
+                <i data-lucide="pin" class="icon i14"></i>
+                <span id="pinned-text" class="grow"></span>
+                <button id="pinned-close" aria-label="بستن"><i data-lucide="x" class="icon i14"></i></button>
+            </div>
+
+            <div id="typing-bar" class="typing-bar hidden"></div>
+
+            <footer id="composer" class="composer">
+                <button id="btn-attach" class="iconbtn" title="پیوست فایل" aria-label="پیوست فایل">
+                    <i data-lucide="paperclip" class="icon i20"></i>
+                </button>
+                <div class="composer-input">
+                    <input type="text" id="chat-input" placeholder="پیام…" autocomplete="off" maxlength="4096">
+                    <button id="btn-emoji" title="ایموجی" aria-label="ایموجی">
+                        <i data-lucide="smile" class="icon i20"></i>
+                    </button>
+                    <div id="emoji-tray" class="emoji-tray hidden"></div>
+                </div>
+                <button id="btn-send" title="ارسال" aria-label="ارسال">
+                    <i data-lucide="send" class="icon i20"></i>
+                </button>
+                <input type="file" id="file-image" accept="image/*" class="hidden">
+                <input type="file" id="file-any" class="hidden">
+            </footer>
+
+            <div id="reply-bar" class="reply-bar hidden">
+                <i data-lucide="corner-up-right" class="icon i16" style="color:var(--accent)"></i>
+                <div class="grow">
+                    <p id="reply-to-name"></p>
+                    <p id="reply-to-text"></p>
+                </div>
+                <button id="reply-cancel" aria-label="لغو پاسخ"><i data-lucide="x" class="icon i16"></i></button>
+            </div>
+
+            <div id="empty-state" class="empty-state">
+                <img src="/icon-192.png" alt="">
+                <p class="t1">به تیکا خوش آمدید</p>
+                <p class="t2">یک گفتگو را از فهرست انتخاب کنید</p>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- ══════════════════ ADMIN VIEW ══════════════════ -->
+<div id="admin-view" class="hidden">
+    <div class="admin-wrap">
+        <div class="admin-inner">
+            <div class="admin-head">
+                <div>
+                    <h1>پنل مدیریت</h1>
+                    <p>مدیریت سامانه و کاربران</p>
+                </div>
+                <button id="btn-exit-admin" class="btn">
+                    <i data-lucide="logout" class="icon i16"></i> بازگشت
+                </button>
+            </div>
+
+            <div id="admin-stats" class="stat-grid"></div>
+
+            <div class="admin-tools">
+                <button id="ad-bcast" class="btn"><i data-lucide="megaphone" class="icon i16"></i> اعلان همگانی</button>
+                <button id="ad-audit" class="btn"><i data-lucide="list" class="icon i16"></i> گزارش رخدادها</button>
+                <button id="ad-maint" class="btn hidden"><i data-lucide="wrench" class="icon i16"></i> حالت نگهداری</button>
+                <button id="ad-lock" class="btn hidden"><i data-lucide="lock" class="icon i16"></i> قفل ثبت‌نام</button>
+                <button id="ad-own" class="btn hidden"><i data-lucide="crown" class="icon i16"></i> انتقال مالکیت</button>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-head">
+                    <h2>مدیریت کاربران</h2>
+                    <input type="text" id="admin-search" class="field" placeholder="جستجوی کاربر…" autocomplete="off">
+                </div>
+                <div id="admin-users" class="admin-users"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals / drawers / toasts -->
+<div id="modal-layer" class="hidden"></div>
+<div id="drawer-layer"></div>
+<div id="toast-layer"></div>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Tika SPA — core (icons, auth, rooms, chat, realtime, optimistic)
+   ══════════════════════════════════════════════════════════════ */
+"use strict";
+
+/* ── Backend endpoints (hardcoded) ───────────────────────────
+   The client is hosted on GitHub Pages (tikachat.github.io) and
+   always talks to the Worker origin for REST + WebSocket. */
+const API_BASE = "https://tika.y1361255.workers.dev";
+const WS_BASE = "wss://tika.y1361255.workers.dev";
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => [...document.querySelectorAll(s)];
+
+function debounce(fn, ms) {
+    let t = null;
+    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
+/* ── Icons: Lucide CDN with inline fallback ─────────────────── */
+const ICONS = {
+    eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+    "eye-off": '<path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 10 8 10 8a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.5 13.5 0 0 0 2 12s3 8 10 8a9.74 9.74 0 0 0 5.39-1.61"/><path d="M2 2l20 20"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>',
+    plus: '<path d="M12 5v14"/><path d="M5 12h14"/>',
+    droplet: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+    sliders: '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
+    logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>',
+    "arrow-right": '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+    info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+    paperclip: '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>',
+    smile: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>',
+    send: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+    check: '<path d="M20 6 9 17l-5-5"/>',
+    checks: '<path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/>',
+    clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    alert: '<circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/>',
+    "corner-up-right": '<path d="m15 14 5-5-5-5"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/>',
+    copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+    forward: '<path d="m15 17 5-5-5-5"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/>',
+    pencil: '<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>',
+    trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+    pin: '<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16h14v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',
+    flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+    file: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+    mic: '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>',
+    bookmark: '<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    link: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+    crown: '<path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/>',
+    x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    key: '<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>',
+    shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+    smartphone: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>',
+    download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
+    megaphone: '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+    list: '<path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/>',
+    wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    lock: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+    moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    layers: '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+    monitor: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+};
+
+function makeIcon(name, cls) {
+    const body = ICONS[name];
+    if (!body) return null;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "1.8");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("class", "icon " + (cls || ""));
+    svg.innerHTML = body;
+    return svg;
+}
+
+function refreshIcons(root) {
+    try {
+        const scope = root || document;
+        if (window.lucide && typeof lucide.createIcons === "function") {
+            lucide.createIcons({ attrs: { "stroke-width": 1.8 }, nameAttr: "data-lucide", root: scope });
+            const orphan = scope.querySelectorAll("i[data-lucide]");
+            if (orphan.length) orphan.forEach((el) => { const s = makeIcon(el.dataset.lucide, el.getAttribute("class") || ""); if (s) el.replaceWith(s); });
+        } else {
+            scope.querySelectorAll("i[data-lucide]").forEach((el) => {
+                const svg = makeIcon(el.dataset.lucide, el.getAttribute("class") || "");
+                if (svg) el.replaceWith(svg);
+            });
+        }
+    } catch (e) { console.error("refreshIcons", e); }
+}
+
+/* ── Utilities ──────────────────────────────────────────────── */
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const faTime = (ts) => { try { return new Date(ts).toLocaleTimeString("fa-IR", { hour: "2-digit", minute: "2-digit" }); } catch { return ""; } };
+const faDate = (ts) => { try { return new Date(ts).toLocaleDateString("fa-IR", { month: "long", day: "numeric" }); } catch { return ""; } };
+const faFull = (ts) => { try { return new Date(ts).toLocaleDateString("fa-IR", { year: "numeric", month: "long", day: "numeric" }); } catch { return ""; } };
+function fmtBytes(n) { if (!n && n !== 0) return ""; const u = ["B", "KB", "MB", "GB"]; let i = 0; while (n >= 1024 && i < 3) { n /= 1024; i++; } return n.toFixed(n < 10 && i > 0 ? 1 : 0) + " " + u[i]; }
+function ageFrom(ts) { if (!ts) return null; try { const d = new Date(ts), n = new Date(); let a = n.getFullYear() - d.getFullYear(); const m = n.getMonth() - d.getMonth(); if (m < 0 || (m === 0 && n.getDate() < d.getDate())) a--; return a; } catch { return null; } }
+function linkify(text) {
+    return esc(text).replace(/(https?:\/\/[^\s<]+)/g, (m) =>
+        `<a href="${m}" class="txtlink" data-extlink="${m}">${m.length > 64 ? m.slice(0, 64) + "…" : m}</a>`);
+}
+/* Deterministic muted name colors for group chats */
+const NAME_COLORS = ["var(--sc0)", "var(--sc1)", "var(--sc2)", "var(--sc3)", "var(--sc4)", "var(--sc5)", "var(--sc6)", "var(--sc7)"];
+function nameColor(id) {
+    let h = 0;
+    const s = String(id || "");
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    return NAME_COLORS[h % NAME_COLORS.length];
+}
+
+const State = {
+    token: localStorage.getItem("tika_token") || null,
+    sid: localStorage.getItem("tika_sid") || null,
+    me: null,
+    rooms: [],
+    currentRoom: null,
+    myRole: null,
+    members: [],
+    messages: new Map(),
+    msgsOrder: [],
+    ws: null,
+    wsRoom: null,
+    wsWanted: false,
+    reconnectDelay: 800,
+    outbox: [],
+    typing: new Map(),
+    online: new Set(),
+    replyTo: null,
+    gender: "unspecified",
+    savedRoomId: null,
+    paging: false,
+    noMoreHistory: false,
+    chatFilter: "",
+    pending: new Map(),   // tmpId → optimistic send record
+};
+
+async function api(method, path, body, opts = {}) {
+    const headers = {};
+    if (State.token) headers.Authorization = "Bearer " + State.token;
+    let payload;
+    if (body !== undefined) { headers["Content-Type"] = "application/json"; payload = JSON.stringify(body); }
+    const res = await fetch(API_BASE + path, { method, headers, body: payload });
+    let data = {};
+    try { data = await res.json(); } catch {}
+    if (res.status === 401 && !opts.noKick && State.me) { doLogout(true); throw new Error(data.error || "نشست منقضی شد"); }
+    if (!res.ok) { const err = new Error(data.error || data.message || ("HTTP " + res.status)); err.status = res.status; err.data = data; throw err; }
+    return data;
+}
+
+function toast(msg, kind = "info") {
+    try {
+        const colors = { info: "var(--accent)", ok: "var(--ok)", err: "var(--danger)", warn: "var(--warn)" };
+        const el = document.createElement("div");
+        el.className = "toast";
+        el.innerHTML = `<span class="dot" style="background:${colors[kind] || colors.info}"></span><span class="grow"></span>`;
+        el.lastElementChild.textContent = msg;
+        $("#toast-layer").appendChild(el);
+        setTimeout(() => { el.classList.add("out"); setTimeout(() => el.remove(), 300); }, 3400);
+    } catch {}
+}
+
+/* ── Modals ─────────────────────────────────────────────────── */
+function openModal(html, onMount) {
+    try {
+        const layer = $("#modal-layer");
+        layer.classList.remove("hidden");
+        layer.innerHTML = `<div class="modal pop-in">${html}</div>`;
+        layer.onclick = (e) => { if (e.target === layer) closeModal(); };
+        const box = layer.firstElementChild;
+        box.insertAdjacentHTML("beforeend", `<button data-close class="modal-x" aria-label="بستن"><i data-lucide="x" class="icon i16"></i></button>`);
+        box.querySelector("[data-close]").onclick = closeModal;
+        if (onMount) onMount(box);
+        refreshIcons(box);
+        return box;
+    } catch (e) { console.error("openModal", e); }
+}
+function closeModal() {
+    try {
+        const layer = $("#modal-layer");
+        layer.classList.add("hidden");
+        layer.innerHTML = "";
+    } catch {}
+}
+function confirmModal(title, text, okLabel, onOk, danger = true) {
+    openModal(`
+        <h3></h3>
+        <p class="sub"></p>
+        <div class="row2">
+            <button data-ok class="btn ${danger ? "btn-danger" : "btn-primary"}"></button>
+            <button data-cancel class="btn">انصراف</button>
+        </div>`, (box) => {
+        box.querySelector("h3").textContent = title;
+        box.querySelector("p").textContent = text;
+        box.querySelector("[data-ok]").textContent = okLabel;
+        box.querySelector("[data-ok]").onclick = () => { closeModal(); onOk(); };
+        box.querySelector("[data-cancel]").onclick = closeModal;
+    });
+}
+function warnExternalLink(url, onProceed) {
+    openModal(`
+        <h3 style="text-align:center">لینک خارجی</h3>
+        <p class="sub" style="text-align:center">این لینک شما را از تیکا خارج می‌کند:</p>
+        <p class="code-box" style="font-size:12px;letter-spacing:0;margin-bottom:16px;word-break:break-all"></p>
+        <div class="row2">
+            <button data-go class="btn btn-primary">ادامه</button>
+            <button data-no class="btn">انصراف</button>
+        </div>`, (box) => {
+        box.querySelector(".code-box").textContent = url.slice(0, 140);
+        box.querySelector("[data-go]").onclick = () => { closeModal(); try { window.open(url, "_blank", "noopener,noreferrer"); } catch {} if (onProceed) onProceed(); };
+        box.querySelector("[data-no]").onclick = closeModal;
+    });
+}
+document.addEventListener("click", (e) => {
+    try {
+        const a = e.target.closest("a[data-extlink]");
+        if (a) { e.preventDefault(); warnExternalLink(a.dataset.extlink); }
+    } catch {}
+});
+
+/* ── View switching ─────────────────────────────────────────── */
+function showAuth() {
+    try {
+        $("#auth-view").classList.remove("hidden");
+        $("#chat-view").classList.add("hidden");
+        $("#admin-view").classList.add("hidden");
+        selectAuthTab("login");
+        refreshIcons();
+    } catch (e) { console.error(e); }
+}
+function showChatShell() {
+    try {
+        $("#auth-view").classList.add("hidden");
+        $("#chat-view").classList.remove("hidden");
+        $("#admin-view").classList.add("hidden");
+        refreshIcons();
+    } catch (e) { console.error(e); }
+}
+function selectAuthTab(name) {
+    try {
+        $$(".authtab").forEach((b) => b.classList.toggle("on", b.dataset.authtab === name));
+        $$(".authform").forEach((f) => f.classList.remove("open"));
+        const map = { login: "login-form", register: "register-form", reset: "reset-form" };
+        const target = $("#" + map[name]);
+        if (target) target.classList.add("open");
+    } catch (e) { console.error(e); }
+}
+function formErr(id, msg) { try { const el = $(id); el.textContent = msg; el.classList.remove("hidden"); } catch {} }
+function clearErr(id) { try { $(id).classList.add("hidden"); } catch {} }
+
+/* Country dial → E.164 */
+function normalizePhone() {
+    const dialRaw = $("#reg-dial").value || "+98";
+    const dial = dialRaw === "+1-ca" ? "+1" : dialRaw;
+    const digits = ($("#reg-phone").value || "").replace(/\D/g, "");
+    return dial + digits;
+}
+
+/* ── Auth wiring ────────────────────────────────────────────── */
+function wireAuth() {
+    try {
+        $$(".authtab").forEach((b) => b.addEventListener("click", () => selectAuthTab(b.dataset.authtab)));
+        $("#link-to-reset").addEventListener("click", (e) => { e.preventDefault(); selectAuthTab("reset"); });
+        $("#link-back-login").addEventListener("click", (e) => { e.preventDefault(); selectAuthTab("login"); });
+        $("#link-to-login").addEventListener("click", (e) => { e.preventDefault(); selectAuthTab("login"); });
+
+        /* LOGIN */
+        $("#login-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            clearErr("#login-error");
+            const identifier = $("#login-identifier").value.trim();
+            const password = $("#login-password").value;
+            const code = $("#login-2fa-code").value.trim();
+            if (!identifier || !password) return formErr("#login-error", "همه فیلدها الزامی است.");
+            const btn = $("#btn-login");
+            btn.disabled = true;
+            try {
+                const body = { identifier, password };
+                if (code) body.code = code;
+                const r = await api("POST", "/api/login", body, { noKick: true });
+                setSession(r.token, r.sid);
+                State.me = r.user;
+                await enterApp();
+            } catch (err) {
+                if (err.data && err.data.error === "2fa_required") {
+                    $("#login-2fa").classList.remove("hidden");
+                    $("#login-2fa-code").focus();
+                    formErr("#login-error", "کد دو مرحله‌ای را وارد کنید.");
+                } else {
+                    formErr("#login-error", err.message === "Invalid credentials" ? "نام کاربری یا رمز عبور اشتباه است." : err.message);
+                }
+            } finally { btn.disabled = false; }
+        });
+
+        /* REGISTER: gender + realtime username + E.164 phone */
+        $$(".gender-opt").forEach((b) => b.addEventListener("click", () => {
+            State.gender = b.dataset.gender;
+            $$(".gender-opt").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        }));
+
+        let usernameTimer = null;
+        $("#reg-username").addEventListener("input", () => {
+            clearTimeout(usernameTimer);
+            const u = $("#reg-username").value.trim().toLowerCase();
+            const hint = $("#reg-username-hint");
+            hint.classList.remove("hidden");
+            if (!/^[a-z0-9_]{3,20}$/.test(u)) { hint.textContent = "۳ تا ۲۰ کاراکتر: حروف انگلیسی کوچک، عدد و _"; hint.style.color = "var(--warn)"; return; }
+            hint.textContent = "بررسی…"; hint.style.color = "var(--text-3)";
+            usernameTimer = setTimeout(async () => {
+                try {
+                    const r = await api("GET", "/api/me/username?u=" + encodeURIComponent(u), undefined, { noKick: true });
+                    hint.textContent = r.available ? "✓ در دسترس است" : "✗ قبلاً گرفته شده";
+                    hint.style.color = r.available ? "var(--ok)" : "var(--danger)";
+                } catch { hint.textContent = ""; }
+            }, 350);
+        });
+
+        $("#register-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            clearErr("#register-error");
+            const display_name = $("#reg-display").value.trim();
+            const username = $("#reg-username").value.trim().toLowerCase();
+            const email = $("#reg-email").value.trim().toLowerCase();
+            const phone = normalizePhone();
+            const password = $("#reg-password").value;
+            if (display_name.length < 2) return formErr("#register-error", "نام نمایشی حداقل ۲ کاراکتر.");
+            if (!/^[a-z0-9_]{3,20}$/.test(username)) return formErr("#register-error", "نام کاربری نامعتبر است.");
+            if (!email.includes("@")) return formErr("#register-error", "ایمیل نامعتبر است.");
+            if (phone.replace(/\D/g, "").length < 8) return formErr("#register-error", "شماره موبایل نامعتبر است.");
+            if (password.length < 8) return formErr("#register-error", "رمز عبور حداقل ۸ کاراکتر.");
+            const btn = $("#btn-register");
+            btn.disabled = true;
+            try {
+                const r = await api("POST", "/api/register", { display_name, username, email, phone, password }, { noKick: true });
+                setSession(r.token, r.sid);
+                State.me = r.user;
+                try { await api("PATCH", "/api/me", { gender: State.gender }); } catch {}
+                toast("خوش آمدی، " + r.user.display_name + "!", "ok");
+                await enterApp();
+            } catch (err) {
+                const map = {
+                    "Username already taken": "نام کاربری قبلاً گرفته شده.",
+                    "Email already registered": "ایمیل قبلاً ثبت شده.",
+                    "Phone number already registered": "شماره موبایل قبلاً ثبت شده.",
+                    "Registration is temporarily closed.": "ثبت‌نام موقتاً بسته است.",
+                };
+                formErr("#register-error", map[err.message] || err.message);
+            } finally { btn.disabled = false; }
+        });
+
+        /* RESET (paste whole link) */
+        $("#btn-forgot").addEventListener("click", async () => {
+            clearErr("#reset-error");
+            const identifier = $("#reset-identifier").value.trim();
+            if (!identifier) return formErr("#reset-error", "شناسه را وارد کنید.");
+            try {
+                await api("POST", "/api/forgot-password", { identifier }, { noKick: true });
+                toast("اگر حساب موجود باشد، لینک بازیابی صادر شد.", "ok");
+                $("#reset-step-1").classList.add("hidden");
+                $("#reset-step-2").classList.remove("hidden");
+            } catch (err) { formErr("#reset-error", err.message); }
+        });
+        $("#btn-reset").addEventListener("click", async () => {
+            clearErr("#reset2-error");
+            const pasted = $("#reset-link").value.trim();
+            const new_password = $("#reset-newpass").value;
+            let token = "", user = "";
+            try { const u = new URL(pasted); token = u.searchParams.get("token") || ""; user = u.searchParams.get("user") || ""; } catch { token = pasted; }
+            if (!token || !user || !new_password) return formErr("#reset2-error", "لینک کامل + رمز جدید الزامی است.");
+            if (new_password.length < 8) return formErr("#reset2-error", "رمز حداقل ۸ کاراکتر.");
+            try {
+                await api("POST", "/api/reset-password", { token, user_id: user, new_password }, { noKick: true });
+                toast("رمز تغییر کرد؛ حالا وارد شو.", "ok");
+                selectAuthTab("login");
+                $("#reset-step-2").classList.add("hidden");
+                $("#reset-step-1").classList.remove("hidden");
+            } catch (err) { formErr("#reset2-error", err.message); }
+        });
+    } catch (e) { console.error("wireAuth", e); }
+}
+
+/* ── Session ────────────────────────────────────────────────── */
+function setSession(token, sid) {
+    State.token = token;
+    State.sid = sid;
+    try { localStorage.setItem("tika_token", token); if (sid) localStorage.setItem("tika_sid", sid); } catch {}
+}
+function doLogout(silent = false) {
+    try { State.wsWanted = false; if (State.ws) State.ws.close(); } catch {}
+    try { api("POST", "/api/logout", undefined, { noKick: true }); } catch {}
+    State.token = null; State.sid = null; State.me = null;
+    State.currentRoom = null; State.rooms = [];
+    State.pending.clear();
+    try { localStorage.removeItem("tika_token"); localStorage.removeItem("tika_sid"); } catch {}
+    showAuth();
+    if (!silent) toast("از حساب خارج شدی.", "info");
+}
+
+/* ── Boot + enter app (crash-proof) ─────────────────────────── */
+async function enterApp() {
+    showChatShell();
+    try { renderSidebarIdentity(); } catch (e) { console.error(e); }
+    await refreshRooms();
+    try { connectWS(); } catch (e) { console.error(e); }
+    try { sweepLoop(); } catch (e) {}
+    refreshIcons();
+}
+
+async function refreshRooms() {
+    try {
+        const me = await api("GET", "/api/me");
+        State.me = { ...(State.me || {}), ...me.user };
+        renderSidebarIdentity();
+    } catch (e) { console.error("me", e); }
+    try {
+        const rooms = await api("GET", "/api/rooms");
+        State.rooms = rooms.rooms || [];
+        // Zero-rooms guard: provision Saved Messages instead of empty state.
+        if (State.rooms.length === 0) {
+            try {
+                const saved = await api("GET", "/api/me/saved-room");
+                State.savedRoomId = saved.room_id;
+                const again = await api("GET", "/api/rooms");
+                State.rooms = again.rooms || [];
+            } catch (e) { console.error("saved-room", e); }
+        }
+        renderRooms();
+    } catch (e) {
+        console.error("rooms", e);
+        toast("خطا در بارگذاری گفتگوها: " + e.message, "err");
+    }
+    // Auto-open saved (or first) room so the UI is never blank.
+    try {
+        if (!State.currentRoom && State.rooms.length > 0) {
+            const target = State.rooms.find((r) => r.id === State.savedRoomId) || State.rooms[0];
+            await openRoom(target.id);
+        }
+    } catch (e) { console.error("autoopen", e); }
+}
+
+function renderSidebarIdentity() {
+    try {
+        const me = State.me || {};
+        $("#sidebar-name").textContent = me.display_name || "—";
+        const st = $("#sidebar-status");
+        st.textContent = me.status_text || (me.username ? "@" + me.username : "آنلاین");
+        st.classList.toggle("status-online", !me.status_text);
+        $("#my-avatar-inner").innerHTML = me.avatar ? `<img src="${me.avatar}" alt="">` : (me.status_emoji || "👤");
+    } catch (e) { console.error(e); }
+}
+
+/* ── Rooms sidebar ──────────────────────────────────────────── */
+function roomIcon(r) {
+    if (r.type === "saved") return "bookmark";
+    if (r.type === "channel") return "megaphone";
+    if (r.type === "private") return "users";
+    return "users";
+}
+function renderRooms() {
+    try {
+        const list = $("#room-list");
+        list.innerHTML = "";
+        const sorted = [...State.rooms].sort((a, b) => {
+            if (a.type === "saved") return -1;
+            if (b.type === "saved") return 1;
+            return (b.last_message_at || b.joined_at || 0) - (a.last_message_at || a.joined_at || 0);
+        });
+        for (const r of sorted) {
+            const isSaved = r.type === "saved";
+            const pendingApproval = r.approved === 0;
+            const active = State.currentRoom && State.currentRoom.id === r.id;
+            const el = document.createElement("button");
+            el.type = "button";
+            el.className = "room-item" + (active ? " current" : "") + (pendingApproval ? " pending-room" : "");
+            const snippet = r.last_message ? String(r.last_message).slice(0, 46) : (pendingApproval ? "در انتظار تأیید مدیر…" : "بدون پیام");
+            const unread = r.unread_count > 0;
+            const nameStyle = isSaved ? ' style="color:var(--link-in)"' : "";
+            el.innerHTML = `
+                <div class="avatar">
+                    ${r.avatar ? `<img src="${r.avatar}" alt="">` : `<i data-lucide="${roomIcon(r)}" class="icon i20" style="color:var(--text-2)"></i>`}
+                    ${unread ? `<span class="unread-dot">${r.unread_count > 99 ? "99+" : r.unread_count.toLocaleString("fa-IR")}</span>` : ""}
+                </div>
+                <div class="room-meta">
+                    <div class="room-row1">
+                        <span class="room-name"${nameStyle}>${esc(r.name || "گفتگو")}</span>
+                        <span class="room-time">${r.last_message_at ? faTime(r.last_message_at) : ""}</span>
+                    </div>
+                    <p class="room-snippet">${esc(snippet)}</p>
+                </div>`;
+            el.addEventListener("click", () => {
+                if (pendingApproval) { toast("عضویت شما در انتظار تأیید مدیر است.", "warn"); return; }
+                openRoom(r.id);
+                closeSidebarMobile();
+            });
+            list.appendChild(el);
+        }
+        if (sorted.length === 0) list.innerHTML = `<p class="room-empty">هنوز گفتگو نیست.</p>`;
+        refreshIcons(list);
+    } catch (e) { console.error("renderRooms", e); }
+}
+
+/* Sidebar on mobile */
+function openSidebarMobile() {
+    if (window.innerWidth >= 768) return;
+    $("#sidebar").classList.remove("closed");
+    $("#sidebar-scrim").classList.add("show");
+}
+function closeSidebarMobile() {
+    $("#sidebar").classList.add("closed");
+    $("#sidebar-scrim").classList.remove("show");
+}
+
+/* ── Open room ──────────────────────────────────────────────── */
+async function openRoom(roomId) {
+    try {
+        const detail = await api("GET", "/api/rooms/" + roomId);
+        State.currentRoom = detail.room;
+        State.myRole = detail.my_role;
+        State.members = detail.members || [];
+        State.messages.clear();
+        State.msgsOrder = [];
+        State.pending.clear();
+        State.noMoreHistory = false;
+        State.chatFilter = "";
+        State.replyTo = null;
+        $("#reply-bar").classList.add("hidden");
+        $("#chat-search-bar").classList.add("hidden");
+
+        $("#empty-state").classList.add("hidden");
+
+        const r = detail.room;
+        $("#room-avatar").innerHTML = r.avatar
+            ? `<img src="${r.avatar}" alt="">`
+            : `<i data-lucide="${roomIcon(r)}" class="icon i20" style="color:var(--text-2)"></i>`;
+        $("#current-room-name").textContent = r.name || "گفتگو";
+        $("#room-verified").classList.toggle("hidden", !r.is_official);
+        $("#room-subtitle").textContent = subtitleFor(r);
+        updateComposerMode();
+        renderRooms();
+
+        const msgs = await api("GET", `/api/rooms/${roomId}/messages?limit=50`);
+        for (const m of msgs.messages) State.messages.set(m.id, m);
+        State.msgsOrder = msgs.messages.map((m) => m.id);
+        renderAllMessages();
+        scrollBottom(true);
+
+        if (State.wsRoom !== roomId || !State.ws || State.ws.readyState > 1) connectWS();
+        const last = msgs.messages[msgs.messages.length - 1];
+        if (last) sendReadUpTo(last.id);
+        refreshIcons();
+    } catch (e) {
+        console.error("openRoom", e);
+        toast("خطا در بازکردن گفتگو: " + e.message, "err");
+    }
+}
+
+function subtitleFor(room) {
+    try {
+        if (!room) return "";
+        if (room.type === "saved") return "یادداشت‌های شخصی شما";
+        if (room.type === "channel") return "کانال — فقط مدیران می‌نویسند";
+        if (room.type === "private") return "گفتگوی دو‌نفره";
+        return State.members.length.toLocaleString("fa-IR") + " عضو" + (room.slow_mode_seconds ? " · حالت آهسته" : "");
+    } catch { return ""; }
+}
+function isStaff() { return ["owner", "admin", "moderator"].includes(State.myRole); }
+function isOwner() { return State.myRole === "owner"; }
+
+function updateComposerMode() {
+    try {
+        const ro = State.currentRoom && State.currentRoom.type === "channel" && !isStaff();
+        $("#chat-input").disabled = !!ro;
+        $("#chat-input").placeholder = ro ? "فقط مدیران می‌توانند در کانال بنویسند" : "پیام…";
+        $("#btn-send").disabled = !!ro;
+    } catch {}
+}
+
+function renderPinnedBar() {
+    try {
+        const bar = $("#pinned-bar");
+        const pinId = State.currentRoom && State.currentRoom.pinned_message_id;
+        const m = pinId ? State.messages.get(pinId) : null;
+        if (m) {
+            $("#pinned-text").textContent = (m.content || "").slice(0, 90) || "پیام سنجاق‌شده";
+            bar.classList.remove("hidden");
+        } else bar.classList.add("hidden");
+    } catch {}
+}
+
+/* ── Message rendering ──────────────────────────────────────── */
+function receiptIcon(status) {
+    if (status === "pending") return `<i data-lucide="clock" class="icon i14"></i>`;
+    if (status === "failed") return `<i data-lucide="alert" class="icon i14 rc-fail"></i>`;
+    if (status === "read") return `<i data-lucide="checks" class="icon i14 rc-read"></i>`;
+    if (status === "delivered") return `<i data-lucide="checks" class="icon i14"></i>`;
+    return `<i data-lucide="check" class="icon i14"></i>`;
+}
+function renderAllMessages() {
+    try {
+        const wrap = $("#message-list");
+        wrap.innerHTML = "";
+        const q = (State.chatFilter || "").trim();
+        let lastDay = "";
+        for (const id of State.msgsOrder) {
+            const m = State.messages.get(id);
+            if (!m) continue;
+            if (q && !(m.content || "").includes(q)) continue;
+            const day = new Date(m.created_at).toDateString();
+            if (day !== lastDay) {
+                lastDay = day;
+                wrap.insertAdjacentHTML("beforeend", `<div class="day-chip"><span>${faFull(m.created_at)}</span></div>`);
+            }
+            wrap.appendChild(renderMessage(m));
+        }
+        renderPinnedBar();
+        refreshIcons(wrap);
+    } catch (e) { console.error("renderAllMessages", e); }
+}
+function addMessage(m, opts = {}) {
+    try {
+        if (State.messages.has(m.id)) return;
+        State.messages.set(m.id, m);
+        State.msgsOrder.push(m.id);
+        State.msgsOrder.sort((a, b) => (State.messages.get(a)?.created_at || 0) - (State.messages.get(b)?.created_at || 0));
+        if ((State.chatFilter || "").trim() && !(m.content || "").includes(State.chatFilter)) return;
+        const node = renderMessage(m);
+        if (!opts.silent) node.classList.add("msg-in");
+        $("#message-list").appendChild(node);
+        refreshIcons($("#message-list"));
+        if (nearBottom()) scrollBottom();
+    } catch (e) { console.error("addMessage", e); }
+}
+function nearBottom() {
+    try { const w = $("#message-list"); return w.scrollHeight - w.scrollTop - w.clientHeight < 160; } catch { return true; }
+}
+function scrollBottom(instant = false) {
+    try {
+        const w = $("#message-list");
+        requestAnimationFrame(() => w.scrollTo({ top: w.scrollHeight, behavior: instant ? "auto" : "smooth" }));
+    } catch {}
+}
+
+function renderMessage(m) {
+    const mine = m.sender_id === (State.me && State.me.id);
+    const row = document.createElement("div");
+    row.className = "msg-row " + (mine ? "mine" : "theirs");
+    row.dataset.oid = m.id;
+
+    const deleted = !!m.is_deleted;
+    let inner = "";
+    if (deleted) {
+        inner = `<p style="font-style:italic;opacity:.6">این پیام حذف شده است.</p>`;
+    } else {
+        if (m.forwarded_from) inner += `<p class="fwd-note">ارسال‌شده از: ${esc(m.forwarded_from)}</p>`;
+        if (!mine && State.currentRoom && State.currentRoom.type !== "private" && State.currentRoom.type !== "saved") {
+            const s = m.sender || {};
+            const c = nameColor(m.sender_id);
+            inner += `<span class="sender-name" style="color:${c}">${esc(s.display_name || "?")}</span>`;
+        }
+        if (m.reply_to_id && State.messages.get(m.reply_to_id)) {
+            const rm = State.messages.get(m.reply_to_id);
+            inner += `<div class="reply-quote"><b>${esc(rm.sender ? rm.sender.display_name : "")}</b><span>${esc((rm.content || "").slice(0, 60))}</span></div>`;
+        }
+        switch (m.type) {
+            case "image":
+                inner += `<img src="${m.media_data}" class="pic" data-img="${m.id}" alt="" loading="lazy" decoding="async">`;
+                if (m.content) inner += `<p>${linkify(m.content)}</p>`;
+                break;
+            case "voice": {
+                let bars = [];
+                try { bars = JSON.parse(m.media_waveform || "[]"); } catch {}
+                if (!bars.length) bars = Array.from({ length: 28 }, () => 4 + Math.random() * 20);
+                inner += `<div class="voice-player">
+                    <button class="vp-play" aria-label="پخش">▶</button>
+                    <div class="wavebars">
+                        ${bars.slice(0, 32).map((h) => `<span class="wfbar" style="height:${Math.max(3, Math.min(h, 24))}px"></span>`).join("")}
+                    </div>
+                    ${m.media_duration ? `<span class="vp-time">${Math.floor(m.media_duration / 60)}:${String(m.media_duration % 60).padStart(2, "0")}</span>` : ""}
+                    <audio class="hidden" src="${m.media_data}" preload="metadata"></audio>
+                </div>`;
+                break;
+            }
+            case "file":
+                inner += `<span class="file-card" data-dl="${m.id}">
+                    <i data-lucide="file" class="icon i20"></i>
+                    <span style="min-width:0"><span class="file-name">${esc(m.media_name || "file")}</span>
+                    <span class="file-mime">${esc(m.media_mime || "")} · ${fmtBytes((m.media_data || "").length * 0.75)}</span></span></span>`;
+                if (m.content) inner += `<p>${linkify(m.content)}</p>`;
+                break;
+            case "sticker":
+                inner += `<p class="sticker">${esc(m.content)}</p>`;
+                break;
+            case "location": {
+                let lat = 0, lng = 0;
+                try { const loc = JSON.parse(m.content); lat = loc.lat; lng = loc.lng; } catch {}
+                inner += `<div class="sticker-loc">📍 موقعیت مشترک
+                    <a class="txtlink" style="display:block;margin-top:2px;font-size:12px" data-extlink="https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=16/${lat}/${lng}" href="#">مشاهده روی نقشه</a></div>`;
+                break;
+            }
+            default: {
+                inner += `<p>${linkify(m.content)}</p>`;
+                if (m.link_preview) {
+                    try {
+                        const lp = JSON.parse(m.link_preview);
+                        inner += `<span class="file-card" data-extlink="${esc(lp.url)}">
+                            <i data-lucide="link" class="icon i16"></i>
+                            <span style="min-width:0"><span class="file-name">${esc(lp.title || lp.url)}</span>
+                            ${lp.description ? `<span class="file-mime">${esc(lp.description)}</span>` : ""}</span></span>`;
+                    } catch {}
+                }
+            }
+        }
+        if (m.reactions && m.reactions.length) {
+            inner += `<div class="reactions">${m.reactions.map((r) =>
+                `<button class="react-chip ${r.mine ? "mine" : ""}" data-react="${esc(r.emoji)}">${esc(r.emoji)} ${r.count > 1 ? r.count.toLocaleString("fa-IR") : ""}</button>`).join("")}</div>`;
+        }
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = `bubble ${mine ? "bubble-out" : "bubble-in"}` +
+        (m.status === "pending" ? " pending" : "") + (m.status === "failed" ? " failed" : "");
+    bubble.dataset.mid = m.id;
+    bubble.innerHTML = inner + `
+        <div class="bubble-foot">
+            ${m.expires_at ? `<span title="محوشونده">⏳</span>` : ""}
+            ${m.is_edited ? `<span>ویرایش‌شده</span>` : ""}
+            <span>${faTime(m.created_at)}</span>
+            ${mine ? `<span class="receipt">${receiptIcon(m.status)}</span>` : ""}
+        </div>`;
+
+    let pressTimer = null;
+    const showMenu = (x, y) => showMessageMenu(m, mine, x, y);
+    bubble.addEventListener("contextmenu", (e) => { e.preventDefault(); showMenu(e.clientX, e.clientY); });
+    bubble.addEventListener("touchstart", (e) => { pressTimer = setTimeout(() => showMenu(e.touches[0].clientX, e.touches[0].clientY), 480); }, { passive: true });
+    bubble.addEventListener("touchend", () => clearTimeout(pressTimer));
+    bubble.addEventListener("touchmove", () => clearTimeout(pressTimer));
+
+    row.appendChild(bubble);
+    return row;
+}
+
+/* ── Optimistic send: pending → confirmed / failed ──────────── */
+function makeTmpId() { return "tmp-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8); }
+
+function appendOptimistic(payload) {
+    const tmpId = makeTmpId();
+    const m = {
+        id: tmpId,
+        room_id: State.currentRoom ? State.currentRoom.id : "",
+        sender_id: State.me && State.me.id,
+        sender: { id: State.me && State.me.id, display_name: (State.me && State.me.display_name) || "من", username: (State.me && State.me.username) || "", avatar: (State.me && State.me.avatar) || null },
+        reply_to_id: payload.reply_to_id || null,
+        content: payload.content || "",
+        type: payload.message_type || "text",
+        media_data: payload.media_data || null,
+        media_mime: payload.media_mime || null,
+        media_name: payload.media_name || null,
+        media_duration: payload.media_duration || null,
+        media_waveform: payload.media_waveform || null,
+        media_width: payload.media_width || null,
+        media_height: payload.media_height || null,
+        link_preview: null,
+        status: "pending",
+        created_at: Date.now(),
+    };
+    State.pending.set(tmpId, { tmpId, content: m.content, type: m.type, createdAt: m.created_at });
+    addMessage(m);
+    return tmpId;
+}
+
+function confirmOptimistic(tmpId, real) {
+    if (!State.pending.has(tmpId)) return;
+    State.pending.delete(tmpId);
+    State.messages.delete(tmpId);
+    State.msgsOrder = State.msgsOrder.filter((id) => id !== tmpId);
+    if (!State.messages.has(real.id)) {
+        State.messages.set(real.id, real);
+        State.msgsOrder.push(real.id);
+        State.msgsOrder.sort((a, b) => (State.messages.get(a)?.created_at || 0) - (State.messages.get(b)?.created_at || 0));
+    }
+    const node = document.querySelector(`[data-oid="${tmpId}"]`);
+    if (node) {
+        const fresh = renderMessage(State.messages.get(real.id) || real);
+        fresh.classList.add("msg-in");
+        node.replaceWith(fresh);
+    }
+    refreshIcons($("#message-list"));
+}
+
+function failOptimistic(tmpId) {
+    if (!State.pending.has(tmpId)) return;
+    State.pending.delete(tmpId);
+    const m = State.messages.get(tmpId);
+    if (!m) return;
+    m.status = "failed";
+    const node = document.querySelector(`[data-mid="${tmpId}"]`);
+    if (node) {
+        node.classList.remove("pending");
+        node.classList.add("failed");
+        const rc = node.querySelector(".receipt");
+        if (rc) { rc.innerHTML = receiptIcon("failed"); refreshIcons(rc); }
+    }
+}
+
+/* When REST answers with a real id, poll recent messages until the
+   hydrated row shows up, then swap out the pending bubble. */
+async function confirmViaFetch(tmpId, roomId, realId, tries = 0) {
+    const m = State.messages.get(realId);
+    if (m) { confirmOptimistic(tmpId, m); return; }
+    if (tries > 8) { failOptimistic(tmpId); return; }
+    try {
+        const r = await api("GET", `/api/rooms/${roomId}/messages?limit=10`);
+        const found = (r.messages || []).find((x) => x.id === realId);
+        if (found) { confirmOptimistic(tmpId, found); return; }
+    } catch {}
+    setTimeout(() => confirmViaFetch(tmpId, roomId, realId, tries + 1), 400);
+}
+
+/* Single funnel for every outgoing message (text/sticker/media/voice):
+   paint optimistically first, then deliver via WS or REST. */
+function submitOutgoing(payload) {
+    const roomId = State.currentRoom && State.currentRoom.id;
+    if (!roomId) return;
+    const tmpId = appendOptimistic(payload);
+    if (State.ws && State.ws.readyState === 1) {
+        try { State.ws.send(JSON.stringify({ type: "send", ...payload })); return; } catch {}
+    }
+    api("POST", `/api/rooms/${roomId}/messages`, payload)
+        .then((r) => confirmViaFetch(tmpId, roomId, r.id))
+        .catch((e) => { failOptimistic(tmpId); toast("ارسال ناموفق: " + e.message, "err"); });
+}
+
+/* ── Context menu ───────────────────────────────────────────── */
+function showMessageMenu(m, mine, x, y) {
+    try {
+        $$(".ctx-menu").forEach((n) => n.remove());
+        if (m.status === "pending" || m.status === "failed") return;
+        const menu = document.createElement("div");
+        menu.className = "ctx-menu pop-in";
+        const items = [];
+        if (!m.is_deleted) {
+            items.push({ icon: "corner-up-right", label: "پاسخ", fn: () => setReply(m) });
+            items.push({ icon: "copy", label: "کپی متن", fn: () => { try { navigator.clipboard.writeText(m.content || ""); toast("کپی شد.", "ok"); } catch {} } });
+            items.push({ icon: "forward", label: "هدایت", fn: () => forwardModal(m) });
+        }
+        if (mine && m.type === "text" && Date.now() - m.created_at < 24 * 3600 * 1000) {
+            items.push({ icon: "pencil", label: "ویرایش", fn: () => editModal(m) });
+        }
+        if (mine || isStaff()) {
+            items.push({ icon: "trash", label: "حذف", fn: () => confirmModal("حذف پیام", "این پیام برای همه حذف می‌شود.", "حذف", async () => {
+                try { await api("DELETE", `/api/rooms/${m.room_id}/messages/${m.id}`); } catch (e) { toast(e.message, "err"); }
+            }) });
+        }
+        if (isStaff() && !m.is_deleted) {
+            items.push({ icon: "pin", label: m.is_pinned ? "برداشتن سنجاق" : "سنجاق", fn: async () => {
+                try { await api("POST", `/api/rooms/${m.room_id}/pin/${m.id}`); await openRoom(m.room_id); } catch (e) { toast(e.message, "err"); }
+            } });
+        }
+        if (!mine && !m.is_deleted) {
+            items.push({ icon: "flag", label: "گزارش تخلف", fn: () => reportModal(m) });
+        }
+        const emojis = ["👍", "❤️", "😂", "😮", "😢", "🔥"];
+        menu.innerHTML = `
+            <div class="ctx-reacts">
+                ${emojis.map((e) => `<button class="ctx-react" data-e="${e}">${e}</button>`).join("")}
+            </div>
+            ${items.map((it, i) => `<button class="ctx-item" data-i="${i}"><i data-lucide="${it.icon}" class="icon i16"></i>${it.label}</button>`).join("")}`;
+        document.body.appendChild(menu);
+        const mw = menu.offsetWidth, mh = menu.offsetHeight;
+        menu.style.left = Math.min(Math.max(8, x - mw / 2), innerWidth - mw - 8) + "px";
+        menu.style.top = Math.min(Math.max(8, y - mh - 8), innerHeight - mh - 8) + "px";
+        const cleanup = () => menu.remove();
+        menu.querySelectorAll(".ctx-react").forEach((b) => b.onclick = () => { cleanup(); try { wsSend({ type: "reaction", message_id: m.id, emoji: b.dataset.e, op: "add" }); } catch {} });
+        menu.querySelectorAll(".ctx-item").forEach((b) => b.onclick = () => { cleanup(); try { items[+b.dataset.i].fn(); } catch (e) { console.error(e); } });
+        setTimeout(() => document.addEventListener("click", function once() { cleanup(); }, { once: true }), 60);
+        refreshIcons(menu);
+    } catch (e) { console.error("menu", e); }
+}
+
+function setReply(m) {
+    State.replyTo = m.id;
+    $("#reply-bar").classList.remove("hidden");
+    $("#reply-to-name").textContent = m.sender ? m.sender.display_name : "";
+    $("#reply-to-text").textContent = (m.content || "").slice(0, 80);
+    $("#chat-input").focus();
+}
+
+function editModal(m) {
+    openModal(`<h3>ویرایش پیام</h3>
+        <textarea id="edit-text" rows="3" class="field">${esc(m.content)}</textarea>
+        <button id="edit-ok" class="btn btn-primary btn-block" style="margin-top:12px">ذخیره</button>`,
+        (box) => {
+            box.querySelector("#edit-ok").onclick = async () => {
+                try {
+                    await api("PUT", `/api/rooms/${m.room_id}/messages/${m.id}`, { content: box.querySelector("#edit-text").value });
+                    closeModal();
+                } catch (e) { toast(e.message, "err"); }
+            };
+        });
+}
+function forwardModal(m) {
+    const targets = State.rooms.filter((r) => r.id !== m.room_id);
+    openModal(`<h3>هدایت پیام</h3>
+        <div class="menu-list" style="max-height:288px;overflow-y:auto">${targets.map((r) =>
+            `<button class="ctx-item fwd-room" data-id="${r.id}"><i data-lucide="${roomIcon(r)}" class="icon i16"></i>${esc(r.name || "گفتگو")}</button>`).join("") || '<p class="sub">گفتگوی دیگری نیست.</p>'}</div>`,
+        (box) => box.querySelectorAll(".fwd-room").forEach((b) => b.addEventListener("click", async () => {
+            try {
+                await api("POST", `/api/rooms/${b.dataset.id}/messages`, {
+                    content: m.content, type: m.type, media_data: m.media_data, media_mime: m.media_mime,
+                    media_name: m.media_name, media_duration: m.media_duration, media_waveform: m.media_waveform,
+                    media_width: m.media_width, media_height: m.media_height,
+                    forward_from_id: m.id, include_author: true,
+                });
+                closeModal(); toast("هدایت شد.", "ok");
+            } catch (e) { toast(e.message, "err"); }
+        })));
+}
+function reportModal(m) {
+    openModal(`<h3>گزارش تخلف</h3>
+        <textarea id="rep-reason" rows="3" class="field" placeholder="دلیل گزارش…"></textarea>
+        <button id="rep-ok" class="btn btn-danger btn-block" style="margin-top:12px">ارسال گزارش</button>`,
+        (box) => box.querySelector("#rep-ok").onclick = async () => {
+            try {
+                await api("POST", `/api/rooms/${m.room_id}/messages/${m.id}?action=report`, { reason: box.querySelector("#rep-reason").value });
+                closeModal(); toast("گزارش برای مدیران ارسال شد.", "ok");
+            } catch (e) { toast(e.message, "err"); }
+        });
+}
+
+/* ── WebSocket client (auto-reconnect + outbox + gap-fill) ──── */
+function connectWS() {
+    if (!State.token || !State.currentRoom) return;
+    State.wsWanted = true;
+    const after = State.msgsOrder.length ? String((State.messages.get(State.msgsOrder[State.msgsOrder.length - 1]) || {}).created_at || 0) : "0";
+    const url = `${WS_BASE}/ws?room=${State.currentRoom.id}&after=${after}&token=${encodeURIComponent(State.token)}&dn=${encodeURIComponent((State.me && State.me.display_name) || "")}`;
+    try { if (State.ws) State.ws.close(); } catch {}
+    let ws;
+    try { ws = new WebSocket(url); } catch (e) { console.error(e); scheduleReconnect(); return; }
+    State.ws = ws;
+    State.wsRoom = State.currentRoom.id;
+
+    ws.addEventListener("open", () => {
+        State.reconnectDelay = 800;
+        const b = $("#connection-banner");
+        if (b) b.classList.add("hidden");
+        flushOutbox();
+    });
+    ws.addEventListener("message", (e) => { try { handleWsEvent(JSON.parse(e.data)); } catch {} });
+    ws.addEventListener("close", () => {
+        if (!State.wsWanted) return;
+        const b = $("#connection-banner");
+        if (b) b.classList.remove("hidden");
+        scheduleReconnect();
+    });
+    ws.addEventListener("error", () => { try { ws.close(); } catch {} });
+}
+function scheduleReconnect() {
+    setTimeout(() => { if (State.wsWanted) connectWS(); }, State.reconnectDelay);
+    State.reconnectDelay = Math.min(State.reconnectDelay * 1.7, 15000);
+}
+function flushOutbox() {
+    while (State.outbox.length && State.ws && State.ws.readyState === 1) {
+        const item = State.outbox.shift();
+        try {
+            if (item.kind === "ws") State.ws.send(JSON.stringify(item.payload));
+            else if (item.kind === "api") api(item.method, item.path, item.body).catch((e) => toast("ارسال ناموفق: " + e.message, "err"));
+        } catch {}
+    }
+}
+function wsSend(payload, quiet = false) {
+    if (State.ws && State.ws.readyState === 1) State.ws.send(JSON.stringify(payload));
+    else {
+        State.outbox.push({ kind: "ws", payload });
+        if (!quiet) toast("آفلاین — در صف ارسال قرار گرفت.", "warn");
+    }
+}
+function handleWsEvent(ev) {
+    try {
+        switch (ev.type) {
+            case "new_message": {
+                if (!State.currentRoom || ev.message.room_id !== State.currentRoom.id) break;
+                const mine = ev.message.sender_id === (State.me && State.me.id);
+                if (mine) {
+                    /* Reconcile the optimistic bubble (server echo). */
+                    const cand = [...State.pending.values()].find((p) => p.content === ev.message.content && p.type === (ev.message.type || "text"));
+                    if (cand) { confirmOptimistic(cand.tmpId, ev.message); break; }
+                }
+                addMessage(ev.message);
+                if (ev.message.sender_id !== (State.me && State.me.id) && document.hasFocus()) sendReadUpTo(ev.message.id);
+                const room = State.rooms.find((r) => r.id === ev.message.room_id);
+                if (room) { room.last_message = ev.message.content; room.last_message_at = ev.message.created_at; renderRooms(); }
+                break;
+            }
+            case "message_updated": {
+                if (!State.currentRoom || ev.message.room_id !== State.currentRoom.id) break;
+                State.messages.set(ev.message.id, ev.message);
+                const row = document.querySelector(`[data-oid="${ev.message.id}"]`);
+                if (row) row.replaceWith(renderMessage(ev.message));
+                refreshIcons($("#message-list"));
+                break;
+            }
+            case "gap_fill": {
+                for (const m of ev.messages) {
+                    if (State.messages.has(m.id)) continue;
+                    const mine = m.sender_id === (State.me && State.me.id);
+                    if (mine) {
+                        const cand = [...State.pending.values()].find((p) => p.content === m.content && p.type === (m.type || "text"));
+                        if (cand) { confirmOptimistic(cand.tmpId, m); continue; }
+                    }
+                    addMessage(m, { silent: true });
+                }
+                scrollBottom();
+                break;
+            }
+            case "typing": {
+                if (ev.user_id === (State.me && State.me.id)) break;
+                if (ev.on) State.typing.set(ev.user_id, { name: ev.display_name, until: Date.now() + 4000 });
+                else State.typing.delete(ev.user_id);
+                renderTyping();
+                break;
+            }
+            case "presence": {
+                if (ev.online) State.online.add(ev.user_id); else State.online.delete(ev.user_id);
+                break;
+            }
+            case "read_receipts": {
+                const upTo = State.messages.get(ev.up_to);
+                if (!upTo) break;
+                for (const [id, m] of State.messages) {
+                    if (m.created_at <= upTo.created_at && m.status !== "read") {
+                        m.status = "read";
+                        const node = document.querySelector(`[data-mid="${id}"] .receipt`);
+                        if (node) { node.innerHTML = receiptIcon("read"); refreshIcons(node); }
+                    }
+                }
+                break;
+            }
+            case "reaction": {
+                const m = State.messages.get(ev.message_id);
+                if (!m) break;
+                m.reactions = m.reactions || [];
+                let r = m.reactions.find((x) => x.emoji === ev.emoji);
+                if (ev.op === "add") {
+                    if (!r) { r = { emoji: ev.emoji, count: 0, mine: false }; m.reactions.push(r); }
+                    r.count++;
+                    if (ev.user_id === (State.me && State.me.id)) r.mine = true;
+                } else if (r) {
+                    r.count--;
+                    if (ev.user_id === (State.me && State.me.id)) r.mine = false;
+                    if (r.count <= 0) m.reactions = m.reactions.filter((x) => x !== r);
+                }
+                const row = document.querySelector(`[data-oid="${ev.message_id}"]`);
+                if (row) row.replaceWith(renderMessage(m));
+                refreshIcons($("#message-list"));
+                break;
+            }
+            case "announcement": {
+                if (ev.title || ev.body) toast((ev.title ? ev.title + ": " : "") + (ev.body || ""), "info");
+                break;
+            }
+            case "send_rejected": {
+                const arr = [...State.pending.keys()];
+                const lastTmp = arr[arr.length - 1];
+                if (lastTmp) failOptimistic(lastTmp);
+                toast(ev.reason || "ارسال رد شد", "warn");
+                break;
+            }
+        }
+    } catch (e) { console.error("wsEvent", e); }
+}
+function renderTyping() {
+    try {
+        const now = Date.now();
+        for (const [uid, t] of State.typing) if (t.until < now) State.typing.delete(uid);
+        const names = [...State.typing.values()].map((t) => t.name);
+        const ind = $("#typing-indicator");
+        const bar = $("#typing-bar");
+        if (names.length === 0) {
+            ind.classList.add("hidden");
+            bar.classList.add("hidden");
+            $("#room-subtitle").textContent = subtitleFor(State.currentRoom);
+        } else {
+            ind.textContent = names.slice(0, 2).join(" و ") + " در حال نوشتن…";
+            bar.textContent = ind.textContent;
+            ind.classList.remove("hidden");
+            bar.classList.remove("hidden");
+        }
+    } catch {}
+}
+setInterval(() => { try { if (State.typing.size) renderTyping(); } catch {} }, 1000);
+
+function sendReadUpTo(messageId) {
+    try {
+        if (!messageId || !State.currentRoom) return;
+        wsSend({ type: "read", up_to: messageId }, true);
+        api("POST", `/api/rooms/${State.currentRoom.id}/read?up_to=${messageId}`, undefined, { noKick: true }).catch(() => {});
+        const room = State.rooms.find((r) => r.id === State.currentRoom.id);
+        if (room) { room.unread_count = 0; renderRooms(); }
+    } catch {}
+}
+
+/* ── Infinite scroll (older history; rAF-throttled, passive) ── */
+window.addEventListener("DOMContentLoaded", () => {
+    try {
+        const w = $("#message-list");
+        let ticking = false;
+        w.addEventListener("scroll", () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(async () => {
+                ticking = false;
+                if (w.scrollTop > 80 || State.paging || State.noMoreHistory || !State.currentRoom) return;
+                State.paging = true;
+                try {
+                    const oldest = (State.messages.get(State.msgsOrder[0]) || {}).created_at;
+                    if (!oldest) return;
+                    const r = await api("GET", `/api/rooms/${State.currentRoom.id}/messages?limit=30&before=${oldest}`);
+                    if (r.messages.length < 30) State.noMoreHistory = true;
+                    const heightBefore = w.scrollHeight, topBefore = w.scrollTop;
+                    for (const m of r.messages.slice().reverse()) if (!State.messages.has(m.id)) State.messages.set(m.id, m);
+                    State.msgsOrder = [...State.messages.values()].map((m) => m.id).sort((a, b) => State.messages.get(a).created_at - State.messages.get(b).created_at);
+                    renderAllMessages();
+                    requestAnimationFrame(() => { w.scrollTop = w.scrollHeight - heightBefore + topBefore; });
+                } catch {} finally { State.paging = false; }
+            });
+        }, { passive: true });
+    } catch (e) { console.error(e); }
+});
+</script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Tika SPA — composer, search, settings, admin, boot
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Send (optimistic first paint) ──────────────────────────── */
+function sendCurrent() {
+    try {
+        if (!State.currentRoom) return;
+        const input = $("#chat-input");
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = "";
+        submitOutgoing({ message_type: "text", content: text, reply_to_id: State.replyTo || undefined });
+        State.replyTo = null;
+        $("#reply-bar").classList.add("hidden");
+    } catch (e) { console.error("send", e); toast("ارسال ناموفق: " + e.message, "err"); }
+}
+
+function wireComposer() {
+    try {
+        const input = $("#chat-input");
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendCurrent(); }
+        });
+        input.addEventListener("input", () => {
+            const now = Date.now();
+            if (now - (sendCurrent._t || 0) > 2500) { sendCurrent._t = now; try { wsSend({ type: "typing", on: true }, true); } catch {} }
+        });
+        $("#btn-send").addEventListener("click", sendCurrent);
+        $("#reply-cancel").addEventListener("click", () => { State.replyTo = null; $("#reply-bar").classList.add("hidden"); });
+        $("#pinned-close").addEventListener("click", () => $("#pinned-bar").classList.add("hidden"));
+
+        /* Emoji tray */
+        const EMOJIS = ["😀","😂","🥲","😍","🤩","😎","🤔","😴","🤯","🥳","😇","🙃","👋","👍","👎","🙏","💪","🔥","✨","🎉","❤️","💔","⭐","🌙","☀️","🌈","🍕","☕","⚽","🏆","🚀","💡"];
+        const tray = $("#emoji-tray");
+        tray.innerHTML = EMOJIS.map((s) => `<button type="button" data-s="${s}">${s}</button>`).join("");
+        $("#btn-emoji").addEventListener("click", (e) => { e.stopPropagation(); tray.classList.toggle("hidden"); });
+        document.addEventListener("click", (e) => { if (!e.target.closest("#emoji-tray") && !e.target.closest("#btn-emoji")) tray.classList.add("hidden"); });
+        tray.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+            tray.classList.add("hidden");
+            submitOutgoing({ message_type: "sticker", content: b.dataset.s, reply_to_id: State.replyTo || undefined });
+            State.replyTo = null; $("#reply-bar").classList.add("hidden");
+        }));
+
+        /* Attach: click = image (compressed), long-press/right-click = any file */
+        $("#btn-attach").addEventListener("click", () => $("#file-image").click());
+        $("#btn-attach").addEventListener("contextmenu", (e) => { e.preventDefault(); $("#file-any").click(); });
+        $("#file-image").addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            e.target.value = "";
+            if (!file || !State.currentRoom) return;
+            try {
+                const bmp = await createImageBitmap(file);
+                const scale = Math.min(1, 1280 / Math.max(bmp.width, bmp.height));
+                const c = document.createElement("canvas");
+                c.width = Math.round(bmp.width * scale);
+                c.height = Math.round(bmp.height * scale);
+                c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+                const dataUrl = c.toDataURL("image/jpeg", 0.82);
+                submitOutgoing({
+                    message_type: "image", content: input.value.trim(), media_data: dataUrl,
+                    media_mime: "image/jpeg", media_name: file.name,
+                    media_width: c.width, media_height: c.height,
+                    reply_to_id: State.replyTo || undefined,
+                });
+                input.value = ""; State.replyTo = null; $("#reply-bar").classList.add("hidden");
+            } catch (err) { toast("خطا در پردازش تصویر: " + err.message, "err"); }
+        });
+        $("#file-any").addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            e.target.value = "";
+            if (!file || !State.currentRoom) return;
+            if (file.size > 2_600_000) return toast("حجم فایل بیش از ۲.۶ مگابایت است.", "err");
+            const dataUrl = await new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(file); });
+            submitOutgoing({ message_type: "file", content: input.value.trim(), media_data: dataUrl, media_mime: file.type || "application/octet-stream", media_name: file.name, reply_to_id: State.replyTo || undefined });
+            input.value = ""; State.replyTo = null; $("#reply-bar").classList.add("hidden");
+        });
+
+        /* Bubble media interactions */
+        document.addEventListener("click", async (e) => {
+            try {
+                const play = e.target.closest(".vp-play");
+                if (play) {
+                    const box = play.closest(".voice-player");
+                    const audio = box.querySelector("audio");
+                    if (!audio) return;
+                    if (audio.paused) {
+                        document.querySelectorAll("#message-list audio").forEach((a) => { if (a !== audio) a.pause(); });
+                        await audio.play();
+                        play.textContent = "❚❚";
+                        audio.ontimeupdate = () => {
+                            const bars = box.querySelectorAll(".wfbar");
+                            const p = audio.currentTime / (audio.duration || 1);
+                            bars.forEach((b, i) => { b.classList.toggle("played", i / bars.length <= p); });
+                        };
+                        audio.onended = () => { play.textContent = "▶"; };
+                    } else { audio.pause(); play.textContent = "▶"; }
+                    return;
+                }
+                const dl = e.target.closest("[data-dl]");
+                if (dl) {
+                    const m = State.messages.get(dl.dataset.dl);
+                    if (m && m.media_data) { const a = document.createElement("a"); a.href = m.media_data; a.download = m.media_name || "tika-file"; a.click(); }
+                    return;
+                }
+                const img = e.target.closest("[data-img]");
+                if (img) {
+                    const m = State.messages.get(img.dataset.img);
+                    if (m && m.media_data) openModal(`<img src="${m.media_data}" style="max-height:80dvh;width:auto;border-radius:12px;margin:0 auto" alt="">`);
+                    return;
+                }
+                const rc = e.target.closest(".react-chip");
+                if (rc) {
+                    const mid = rc.closest("[data-mid]");
+                    if (mid) wsSend({ type: "reaction", message_id: mid.dataset.mid, emoji: rc.dataset.react, op: "add" }, true);
+                }
+            } catch (err) { console.error(err); }
+        });
+    } catch (e) { console.error("wireComposer", e); }
+}
+
+/* ── Voice recorder (mic button injected into composer) ─────── */
+let recorder = null, recChunks = [], recTimer = null, recStart = 0, recWave = [], recStream = null, recCtx = null;
+function wireVoice() {
+    try {
+        const mic = document.createElement("button");
+        mic.id = "btn-voice";
+        mic.type = "button";
+        mic.title = "پیام صوتی (ضبط/ارسال)";
+        mic.className = "iconbtn";
+        mic.setAttribute("aria-label", "پیام صوتی");
+        mic.innerHTML = '<i data-lucide="mic" class="icon i20"></i>';
+        const footer = $("#composer");
+        footer.insertBefore(mic, $("#chat-input").parentElement);
+        mic.addEventListener("click", toggleVoice);
+        refreshIcons(footer);
+    } catch (e) { console.error("wireVoice", e); }
+}
+async function toggleVoice() {
+    try {
+        if (!recorder) {
+            recStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const analyser = recCtx.createAnalyser();
+            recCtx.createMediaStreamSource(recStream).connect(analyser);
+            recChunks = []; recWave = []; recStart = Date.now();
+            recorder = new MediaRecorder(recStream);
+            recorder.ondataavailable = (ev) => recChunks.push(ev.data);
+            recorder.start(250);
+            recTimer = setInterval(() => {
+                const data = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteTimeDomainData(data);
+                let peak = 0; for (const v of data) peak = Math.max(peak, Math.abs(v - 128));
+                recWave.push(4 + (peak / 128) * 20);
+            }, 150);
+            $("#btn-voice").classList.add("recording");
+            toast("🔴 در حال ضبط… برای پایان و ارسال دوباره بزنید.", "warn");
+        } else {
+            const duration = Math.max(1, Math.floor((Date.now() - recStart) / 1000));
+            const wave = recWave.slice(-48).map((h) => Math.round(h));
+            clearInterval(recTimer);
+            $("#btn-voice").classList.remove("recording");
+            const finish = () => {
+                try { recStream.getTracks().forEach((t) => t.stop()); } catch {}
+                try { recCtx.close(); } catch {}
+                recorder = null;
+                const blob = new Blob(recChunks, { type: "audio/webm" });
+                const fr = new FileReader();
+                fr.onload = () => {
+                    submitOutgoing({ message_type: "voice", content: "", media_data: fr.result, media_mime: "audio/webm", media_name: "voice.webm", media_duration: duration, media_waveform: JSON.stringify(wave), reply_to_id: State.replyTo || undefined });
+                    State.replyTo = null; $("#reply-bar").classList.add("hidden");
+                };
+                fr.readAsDataURL(blob);
+            };
+            recorder.onstop = finish;
+            try { recorder.stop(); } catch { finish(); }
+        }
+    } catch (e) { toast("میکروفون در دسترس نیست: " + e.message, "err"); }
+}
+
+/* ── Global search + in-chat filter ─────────────────────────── */
+function wireSearch() {
+    try {
+        let timer = null;
+        $("#global-search").addEventListener("input", () => {
+            clearTimeout(timer);
+            const q = $("#global-search").value.trim();
+            const box = $("#search-results");
+            if (q.length < 2) { box.classList.add("hidden"); return; }
+            timer = setTimeout(async () => {
+                try {
+                    const [msgs, users] = await Promise.all([
+                        api("GET", "/api/search?q=" + encodeURIComponent(q)).catch(() => ({ results: [] })),
+                        api("GET", "/api/users/search?q=" + encodeURIComponent(q)).catch(() => ({ users: [] })),
+                    ]);
+                    box.classList.remove("hidden");
+                    box.innerHTML = "";
+                    (users.users || []).slice(0, 5).forEach((u) => {
+                        const b = document.createElement("button");
+                        b.type = "button";
+                        b.className = "search-row";
+                        b.innerHTML = `<span style="display:flex;align-items:center;gap:8px"><span class="avatar avatar-xs">👤</span><span class="grow"><b>${esc(u.display_name)}</b> <span dir="ltr" class="muted">@${esc(u.username)}</span></span></span>`;
+                        b.addEventListener("click", () => { box.classList.add("hidden"); userProfileModal(u.id); });
+                        box.appendChild(b);
+                    });
+                    (msgs.results || []).slice(0, 6).forEach((m) => {
+                        const b = document.createElement("button");
+                        b.type = "button";
+                        b.className = "search-row";
+                        b.innerHTML = `<p class="muted" style="margin:0;font-size:10px">${esc(m.room_name || "گفتگو")} · ${faTime(m.created_at)}</p>
+                            <p style="margin:0;font-size:12px">${esc((m.content || "").slice(0, 64))}</p>`;
+                        b.addEventListener("click", () => { box.classList.add("hidden"); openRoom(m.room_id); });
+                        box.appendChild(b);
+                    });
+                    if (!box.children.length) box.innerHTML = `<p class="search-row" style="cursor:default">نتیجه‌ای یافت نشد.</p>`;
+                } catch {}
+            }, 300);
+        });
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest("#global-search") && !e.target.closest("#search-results")) {
+                $("#search-results").classList.add("hidden");
+            }
+        });
+        $("#btn-chat-search").addEventListener("click", () => {
+            const bar = $("#chat-search-bar");
+            bar.classList.toggle("hidden");
+            if (!bar.classList.contains("hidden")) $("#chat-search-input").focus();
+        });
+        $("#chat-search-input").addEventListener("input", () => {
+            State.chatFilter = $("#chat-search-input").value;
+            renderAllMessages();
+        });
+    } catch (e) { console.error("wireSearch", e); }
+}
+
+/* ── New room ───────────────────────────────────────────────── */
+function wireNewRoom() {
+    try {
+        $("#btn-new-room").addEventListener("click", () => {
+            openModal(`
+                <h3>گفتگوی جدید</h3>
+                <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+                    <div>
+                        <label class="field-label">نام گروه / کانال</label>
+                        <input id="nc-name" class="field" placeholder="مثلاً تیم محصول">
+                    </div>
+                    <div class="seg">
+                        <button type="button" data-type="group" class="nc-type seg-btn" aria-pressed="true">👥 گروه</button>
+                        <button type="button" data-type="channel" class="nc-type seg-btn" aria-pressed="false">📢 کانال</button>
+                    </div>
+                    <p id="nc-error" class="form-err hidden" style="margin:0"></p>
+                    <button id="nc-create" class="btn btn-primary btn-block">ساخت</button>
+                </div>`, (box) => {
+                let type = "group";
+                box.querySelectorAll(".nc-type").forEach((b) => b.addEventListener("click", () => {
+                    type = b.dataset.type;
+                    box.querySelectorAll(".nc-type").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+                }));
+                box.querySelector("#nc-create").onclick = async () => {
+                    const name = box.querySelector("#nc-name").value.trim();
+                    if (name.length < 2) { const el = box.querySelector("#nc-error"); el.textContent = "نام حداقل ۲ کاراکتر."; el.classList.remove("hidden"); return; }
+                    try {
+                        const r = await api("POST", "/api/rooms", { name, type });
+                        closeModal();
+                        toast("ساخته شد. کد دعوت: " + r.room.invite_code, "ok");
+                        State.currentRoom = null;
+                        await refreshRooms();
+                        await openRoom(r.room.id);
+                    } catch (e) {
+                        const el = box.querySelector("#nc-error"); el.textContent = e.message; el.classList.remove("hidden");
+                    }
+                };
+            });
+        });
+    } catch (e) { console.error("wireNewRoom", e); }
+}
+
+/* ── Room menu (info / settings / invite / leave) ───────────── */
+function wireRoomMenu() {
+    try {
+        $("#btn-room-menu").addEventListener("click", () => {
+            if (!State.currentRoom) return;
+            const r = State.currentRoom;
+            const items = [];
+            items.push({ icon: "users", label: "اعضا (" + State.members.length.toLocaleString("fa-IR") + ")", fn: roomMembersModal });
+            if (r.type !== "private" && r.type !== "saved") {
+                if (isStaff()) items.push({ icon: "sliders", label: "تنظیمات گفتگو", fn: roomSettingsModal });
+                if (isStaff()) items.push({ icon: "link", label: "لینک دعوت", fn: async () => {
+                    try {
+                        const x = await api("POST", `/api/rooms/${r.id}/invite`);
+                        openModal(`<h3>لینک دعوت</h3>
+                            <p class="code-box">${esc(x.invite_code)}</p>
+                            <button id="iv-copy" class="btn btn-primary btn-block" style="margin-top:12px">کپی</button>`,
+                            (bx) => bx.querySelector("#iv-copy").onclick = () => { try { navigator.clipboard.writeText(x.invite_code); toast("کپی شد.", "ok"); } catch {} });
+                    } catch (e) { toast(e.message, "err"); }
+                } });
+                if (isOwner()) items.push({ icon: "crown", label: "انتقال مالکیت", fn: () => transferRoomModal(r.id) });
+                items.push({ icon: "logout", label: "خروج از گروه", danger: true, fn: () => confirmModal("خروج", "از این گروه خارج می‌شوید؟", "خروج", async () => {
+                    try {
+                        await api("POST", `/api/rooms/${r.id}?action=leave`);
+                        State.currentRoom = null;
+                        $("#empty-state").classList.remove("hidden");
+                        $("#message-list").innerHTML = "";
+                        await refreshRooms();
+                    } catch (e) { toast(e.message, "err"); }
+                }) });
+            }
+            openModal(`<h3>${esc(r.name || "گفتگو")}</h3>
+                <div class="menu-list">${items.map((it, i) =>
+                    `<button class="ctx-item rm-item${it.danger ? " danger" : ""}" data-i="${i}"><i data-lucide="${it.icon}" class="icon i16"></i>${it.label}</button>`).join("")}</div>`,
+                (box) => box.querySelectorAll(".rm-item").forEach((b) => b.addEventListener("click", () => { closeModal(); try { items[+b.dataset.i].fn(); } catch (e) { console.error(e); } })));
+        });
+    } catch (e) { console.error("wireRoomMenu", e); }
+}
+function roomMembersModal() {
+    openModal(`<h3>اعضا</h3>
+        <div class="menu-list" style="max-height:320px;overflow-y:auto">${State.members.map((mem) => `
+            <div class="member-row">
+                <div class="avatar avatar-xs">${mem.avatar ? `<img src="${mem.avatar}" alt="">` : "👤"}</div>
+                <div class="grow"><b style="font-size:12px">${esc(mem.display_name)}</b>
+                <span class="uname" dir="ltr" style="display:block">@${esc(mem.username)}</span></div>
+                <span class="role-tag">${mem.role === "owner" ? "👑 مالک" : mem.role === "admin" ? "مدیر" : mem.role === "moderator" ? "ناظر" : "عضو"}</span>
+            </div>`).join("")}</div>`);
+}
+function roomSettingsModal() {
+    const r = State.currentRoom;
+    openModal(`<h3>تنظیمات گفتگو</h3>
+        <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+            <div><label class="field-label">نام</label>
+                <input id="rs-name" class="field" value="${esc(r.name || "")}"></div>
+            <div><label class="field-label">توضیحات</label>
+                <textarea id="rs-desc" rows="2" class="field">${esc(r.description || "")}</textarea></div>
+            <div><label class="field-label">حالت آهسته (ثانیه، ۰=خاموش)</label>
+                <input id="rs-slow" type="number" min="0" dir="ltr" class="field" value="${r.slow_mode_seconds}"></div>
+            <label class="settings-row"><span>تأیید عضویت لازم است</span><input type="checkbox" id="rs-approval" ${r.approval_mode ? "checked" : ""}></label>
+            <button id="rs-save" class="btn btn-primary btn-block">ذخیره</button>
+        </div>`, (box) => {
+        box.querySelector("#rs-save").onclick = async () => {
+            try {
+                await api("PATCH", `/api/rooms/${r.id}`, {
+                    name: box.querySelector("#rs-name").value,
+                    description: box.querySelector("#rs-desc").value,
+                    slow_mode_seconds: +box.querySelector("#rs-slow").value || 0,
+                    approval_mode: box.querySelector("#rs-approval").checked,
+                });
+                closeModal(); toast("ذخیره شد.", "ok"); await openRoom(r.id);
+            } catch (e) { toast(e.message, "err"); }
+        };
+    });
+}
+function transferRoomModal(roomId) {
+    const candidates = State.members.filter((m) => m.user_id !== (State.me && State.me.id));
+    openModal(`<h3>انتقال مالکیت</h3>
+        <div class="menu-list" style="max-height:288px;overflow-y:auto">${candidates.map((m) =>
+            `<button class="ctx-item tr-user" data-id="${m.user_id}"><i data-lucide="users" class="icon i16"></i>${esc(m.display_name)}</button>`).join("") || '<p class="sub">عضو دیگری نیست.</p>'}</div>`,
+        (box) => box.querySelectorAll(".tr-user").forEach((b) => b.addEventListener("click", () => {
+            confirmModal("انتقال مالکیت", "مطمئنید؟ بازگشت‌ناپذیر است.", "انتقال", async () => {
+                try { await api("POST", `/api/rooms/${roomId}/transfer-ownership`, { user_id: b.dataset.id }); toast("مالکیت منتقل شد.", "ok"); await openRoom(roomId); } catch (e) { toast(e.message, "err"); }
+            }, false);
+        })));
+}
+
+/* ── User profile modal ─────────────────────────────────────── */
+async function userProfileModal(userId) {
+    try {
+        const r = await api("GET", "/api/users/" + userId);
+        const u = r.user;
+        const age = ageFrom(u.birthday);
+        openModal(`<div style="text-align:center;margin-bottom:16px">
+            <div class="avatar" style="width:72px;height:72px;font-size:30px;margin:0 auto 8px">${u.avatar ? `<img src="${u.avatar}" alt="">` : (u.status_emoji || "👤")}</div>
+            <h3 style="margin-bottom:2px">${esc(u.display_name)} ${u.verified ? '<span style="color:var(--accent)">✔︎</span>' : ""}</h3>
+            <p class="sub" dir="ltr" style="margin-bottom:0">@${esc(u.username)}</p>
+            ${u.status_text ? `<p class="sub" style="margin:4px 0 0">${esc(u.status_emoji + " " + u.status_text)}</p>` : ""}
+            ${age !== null ? `<p class="sub" style="margin:4px 0 0;font-size:10px">${age.toLocaleString("fa-IR")} سال</p>` : ""}
+            ${u.bio ? `<p class="sub" style="margin:8px 0 0">${esc(u.bio)}</p>` : ""}
+            ${u.phone ? `<p class="sub" dir="ltr" style="margin:8px 0 0">📱 ${esc(u.phone)}</p>` : ""}
+        </div>
+        <div class="row2">
+            <button id="up-close" class="btn">بستن</button>
+            <button id="up-block" class="btn btn-danger">مسدودسازی</button>
+        </div>`, (box) => {
+            box.querySelector("#up-close").onclick = closeModal;
+            box.querySelector("#up-block").onclick = async () => {
+                try { const x = await api("POST", `/api/users/${userId}/block`); toast(x.blocked ? "کاربر مسدود شد." : "مسدودی برداشته شد.", "ok"); } catch (e) { toast(e.message, "err"); }
+            };
+        });
+    } catch (e) { toast(e.message, "err"); }
+}
+
+/* ── Settings drawer ────────────────────────────────────────── */
+function openDrawer(title, bodyHtml, onMount) {
+    try {
+        const layer = $("#drawer-layer");
+        layer.classList.add("on");
+        layer.innerHTML = `
+            <button class="drawer-scrim" data-scrim tabindex="-1" aria-hidden="true"></button>
+            <div class="drawer-panel" data-panel>
+                <div class="drawer-head">
+                    <button data-close class="iconbtn" aria-label="بستن"><i data-lucide="x" class="icon i18"></i></button>
+                    <h3>${esc(title)}</h3>
+                </div>
+                <div class="drawer-body" data-body>${bodyHtml}</div>
+            </div>`;
+        const panel = layer.querySelector("[data-panel]");
+        requestAnimationFrame(() => { requestAnimationFrame(() => panel.classList.add("open")); });
+        const close = () => {
+            panel.classList.remove("open");
+            setTimeout(() => { layer.innerHTML = ""; layer.classList.remove("on"); }, 280);
+        };
+        layer.querySelector("[data-close]").onclick = close;
+        layer.querySelector("[data-scrim]").onclick = close;
+        if (onMount) onMount(layer.querySelector("[data-body]"), close);
+        refreshIcons(layer);
+    } catch (e) { console.error("drawer", e); }
+}
+
+function wireSettings() {
+    try {
+        $("#btn-settings").addEventListener("click", () => {
+            const me = State.me || {};
+            const age = ageFrom(me.birthday);
+            openDrawer("تنظیمات", `
+                <div class="profile-head">
+                    <button id="pf-avatar" class="avatar" style="cursor:pointer" aria-label="تغییر آواتار">${me.avatar ? `<img src="${me.avatar}" alt="">` : (me.status_emoji || "👤")}</button>
+                    <div class="who">
+                        <b>${esc(me.display_name || "")}</b>
+                        <span>@${esc(me.username || "")}</span>
+                        <span style="text-align:end;color:var(--accent)">${me.role === "super_admin" ? "👑 مالک سامانه" : me.role === "admin" ? "🛡️ مدیر" : "عضو"}${age !== null ? " · " + age.toLocaleString("fa-IR") + " سال" : ""}</span>
+                    </div>
+                    <button id="pf-admin" class="${(me.role === "admin" || me.role === "super_admin") ? "iconbtn" : "hidden"}" title="پنل مدیریت"><i data-lucide="shield" class="icon i18"></i></button>
+                </div>
+                <input type="file" id="pf-avatar-file" accept="image/*" class="hidden">
+                <div class="stack">
+                    <div><label class="field-label">نام نمایشی</label>
+                        <input id="pf-name" class="field" value="${esc(me.display_name || "")}"></div>
+                    <div><label class="field-label">نام کاربری</label>
+                        <input id="pf-username" dir="ltr" class="field" value="${esc(me.username || "")}"></div>
+                    <div><label class="field-label">بیوگرافی (۳۰۰)</label>
+                        <textarea id="pf-bio" rows="2" class="field">${esc(me.bio || "")}</textarea></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div><label class="field-label">متن وضعیت</label>
+                            <input id="pf-stext" class="field" value="${esc(me.status_text || "")}"></div>
+                        <div><label class="field-label">ایموجی</label>
+                            <input id="pf-semoji" class="field" value="${esc(me.status_emoji || "")}"></div>
+                    </div>
+                    <label class="settings-row"><span>مخفی‌کردن شماره</span><input type="checkbox" id="pf-hidephone" ${me.hide_phone ? "checked" : ""}></label>
+                    <label class="settings-row"><span>مخفی‌کردن آخرین بازدید</span><input type="checkbox" id="pf-hidels" ${me.hide_last_seen ? "checked" : ""}></label>
+                    <button id="pf-save" class="btn btn-primary btn-block">ذخیره پروفایل</button>
+                    <hr class="drawer-divider">
+                    <div class="settings-row" style="flex-wrap:wrap;gap:8px">
+                        <span>تم برنامه</span>
+                        <div class="seg" style="flex:1;min-width:200px">
+                            <button type="button" class="seg-btn pf-theme" data-theme="dark">تیره</button>
+                            <button type="button" class="seg-btn pf-theme" data-theme="glass">شیشه‌ای</button>
+                            <button type="button" class="seg-btn pf-theme" data-theme="light">روشن</button>
+                        </div>
+                    </div>
+                    <hr class="drawer-divider" style="margin:8px 0">
+                    <button id="pf-pass" class="list-btn"><i data-lucide="key" class="icon i16"></i> تغییر رمز عبور</button>
+                    <button id="pf-2fa" class="list-btn"><i data-lucide="shield" class="icon i16"></i> ورود دو مرحله‌ای</button>
+                    <button id="pf-sessions" class="list-btn"><i data-lucide="smartphone" class="icon i16"></i> نشست‌های فعال</button>
+                    <button id="pf-export" class="list-btn"><i data-lucide="download" class="icon i16"></i> خروجی JSON داده‌ها</button>
+                    <button id="pf-delete" class="list-btn danger"><i data-lucide="trash" class="icon i16"></i> حذف کامل حساب</button>
+                </div>`, (body, close) => {
+                body.querySelector("#pf-admin").addEventListener("click", () => { close(); adminPanel(); });
+                const avf = body.querySelector("#pf-avatar-file");
+                body.querySelector("#pf-avatar").addEventListener("click", () => avf.click());
+                avf.addEventListener("change", () => {
+                    const f = avf.files[0];
+                    if (!f) return;
+                    const img = new Image();
+                    img.onload = async () => {
+                        const scale = Math.min(1, 256 / Math.max(img.width, img.height));
+                        const c = document.createElement("canvas");
+                        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+                        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+                        try {
+                            const r = await api("PATCH", "/api/me", { avatar: c.toDataURL("image/jpeg", 0.85) });
+                            State.me = { ...State.me, ...r.user };
+                            renderSidebarIdentity();
+                            toast("آواتار به‌روزرسانی شد.", "ok");
+                            close();
+                        } catch (e) { toast(e.message, "err"); }
+                    };
+                    img.src = URL.createObjectURL(f);
+                });
+                body.querySelector("#pf-save").onclick = async () => {
+                    try {
+                        const uname = body.querySelector("#pf-username").value.trim().toLowerCase();
+                        if (uname !== State.me.username) await api("PUT", "/api/me/username", { username: uname });
+                        const r = await api("PATCH", "/api/me", {
+                            display_name: body.querySelector("#pf-name").value,
+                            bio: body.querySelector("#pf-bio").value,
+                            status_text: body.querySelector("#pf-stext").value,
+                            status_emoji: body.querySelector("#pf-semoji").value,
+                            hide_phone: body.querySelector("#pf-hidephone").checked,
+                            hide_last_seen: body.querySelector("#pf-hidels").checked,
+                        });
+                        State.me = { ...State.me, ...r.user, username: uname };
+                        renderSidebarIdentity();
+                        toast("پروفایل ذخیره شد.", "ok");
+                    } catch (e) { toast(e.message, "err"); }
+                };
+                body.querySelector("#pf-pass").onclick = passwordModal;
+                body.querySelectorAll(".pf-theme").forEach((b) => b.addEventListener("click", () => {
+                    applyTheme(b.dataset.theme);
+                    body.querySelectorAll(".pf-theme").forEach((x) => x.classList.toggle("on", x === b));
+                }));
+                body.querySelectorAll(".pf-theme").forEach((x) => x.classList.toggle("on", x.dataset.theme === currentTheme()));
+                body.querySelector("#pf-2fa").onclick = () => twofaModal(State.me.two_fa_enabled);
+                body.querySelector("#pf-sessions").onclick = sessionsModal;
+                body.querySelector("#pf-export").onclick = async () => {
+                    try {
+                        const data = await api("GET", "/api/me/export");
+                        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+                        const a = document.createElement("a");
+                        a.href = URL.createObjectURL(blob);
+                        a.download = "tika-export.json";
+                        a.click();
+                    } catch (e) { toast(e.message, "err"); }
+                };
+                body.querySelector("#pf-delete").onclick = () => openModal(`
+                    <h3>حذف کامل حساب</h3>
+                    <p class="sub">تمام داده‌های شما برای همیشه حذف می‌شود. رمز را تأیید کنید.</p>
+                    <input id="del-pass" type="password" class="field" placeholder="رمز عبور" style="margin-bottom:12px">
+                    <button id="del-ok" class="btn btn-danger btn-block">حذف همیشگی</button>`,
+                    (box) => box.querySelector("#del-ok").onclick = async () => {
+                        try { await api("DELETE", "/api/me", { password: box.querySelector("#del-pass").value }); closeModal(); doLogout(true); } catch (e) { toast(e.message, "err"); }
+                    });
+            });
+        });
+        $("#btn-my-avatar").addEventListener("click", () => $("#btn-settings").click());
+        $("#btn-open-settings").addEventListener("click", () => $("#btn-settings").click());
+        $("#btn-logout").addEventListener("click", () => doLogout());
+    } catch (e) { console.error("wireSettings", e); }
+}
+
+function passwordModal() {
+    openModal(`<h3>تغییر رمز عبور</h3>
+        <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+            <input id="cp-cur" type="password" class="field" placeholder="رمز فعلی">
+            <input id="cp-new" type="password" class="field" placeholder="رمز جدید (۸+)">
+            <button id="cp-ok" class="btn btn-primary btn-block">تغییر</button>
+        </div>`,
+        (box) => box.querySelector("#cp-ok").onclick = async () => {
+            try {
+                await api("POST", "/api/me/password", { current_password: box.querySelector("#cp-cur").value, new_password: box.querySelector("#cp-new").value });
+                closeModal(); toast("رمز تغییر کرد؛ نشست‌های دیگر خارج شدند.", "ok");
+            } catch (e) { toast(e.message, "err"); }
+        });
+}
+async function twofaModal(enabled) {
+    try {
+        if (enabled) {
+            openModal(`<h3>2FA فعال است</h3>
+                <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+                    <input id="t2-pass" type="password" class="field" placeholder="رمز برای غیرفعال‌سازی">
+                    <button id="t2-off" class="btn btn-danger btn-block">غیرفعال‌سازی</button>
+                </div>`,
+                (box) => box.querySelector("#t2-off").onclick = async () => {
+                    try { await api("POST", "/api/me/2fa/disable", { password: box.querySelector("#t2-pass").value }); closeModal(); toast("2FA خاموش شد.", "ok"); } catch (e) { toast(e.message, "err"); }
+                });
+            return;
+        }
+        const r = await api("POST", "/api/me/2fa/setup");
+        openModal(`<h3>فعال‌سازی 2FA</h3>
+            <p class="sub">کلید را در اپ Authenticator وارد کنید و کد ۶ رقمی را بنویسید.</p>
+            <p class="code-box" style="margin-bottom:12px">${esc(r.secret)}</p>
+            <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+                <input id="t2-code" inputmode="numeric" maxlength="6" dir="ltr" class="field" style="text-align:center;letter-spacing:.5em" placeholder="──────">
+                <button id="t2-ok" class="btn btn-primary btn-block">فعال‌سازی</button>
+            </div>`,
+            (box) => box.querySelector("#t2-ok").onclick = async () => {
+                try { await api("POST", "/api/me/2fa/enable", { code: box.querySelector("#t2-code").value.trim() }); closeModal(); toast("2FA فعال شد.", "ok"); } catch (e) { toast(e.message, "err"); }
+            });
+    } catch (e) { toast(e.message, "err"); }
+}
+async function sessionsModal() {
+    try {
+        const r = await api("GET", "/api/me/sessions");
+        openModal(`<h3>نشست‌های فعال</h3>
+            <button id="ss-revoke" class="btn btn-danger btn-block" style="margin-bottom:12px">خروج از همه دستگاه‌های دیگر</button>
+            <div class="stack" style="display:flex;flex-direction:column;gap:8px">${r.sessions.map((s) => `
+                <div class="session-row" style="background:var(--field);border:1px solid var(--border);border-radius:8px">
+                    <span>${s.is_current ? "🟢" : "🔵"}</span>
+                    <div class="grow"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" dir="ltr">${esc(s.user_agent || "دستگاه")}</b>
+                    <span class="sub" dir="ltr">${esc(s.ip || "—")} · ${faDate(s.created_at)}</span></div>
+                    ${s.is_current ? '<span class="role-tag">فعلی</span>' : ""}
+                </div>`).join("")}</div>`, (box) => {
+            box.querySelector("#ss-revoke").onclick = async () => {
+                try { const x = await api("DELETE", "/api/me/sessions"); toast(x.message, "ok"); closeModal(); } catch (e) { toast(e.message, "err"); }
+            };
+        });
+    } catch (e) { toast(e.message, "err"); }
+}
+
+/* ── Admin panel ────────────────────────────────────────────── */
+async function adminPanel() {
+    let stats;
+    try { stats = (await api("GET", "/api/admin/stats")).stats; }
+    catch (e) { return toast("دسترسی مدیریتی ندارید.", "err"); }
+    const isOwner = State.me.role === "super_admin";
+    $("#admin-stats").innerHTML = `
+        <div class="stat-card"><p class="k">کاربران</p><p class="v">${(stats.total_users || 0).toLocaleString("fa-IR")}</p></div>
+        <div class="stat-card"><p class="k">فعال امروز</p><p class="v">${(stats.active_today || 0).toLocaleString("fa-IR")}</p></div>
+        <div class="stat-card"><p class="k">پیام‌ها</p><p class="v">${(stats.total_messages || 0).toLocaleString("fa-IR")}</p></div>`;
+    $("#ad-maint").classList.toggle("hidden", !isOwner);
+    $("#ad-lock").classList.toggle("hidden", !isOwner);
+    $("#ad-own").classList.toggle("hidden", !isOwner);
+    $("#chat-view").classList.add("hidden");
+    $("#admin-view").classList.remove("hidden");
+    refreshIcons();
+    loadAdminUsers("");
+}
+async function loadAdminUsers(q) {
+    try {
+        const r = await api("GET", "/api/admin/users?limit=100" + (q ? "&q=" + encodeURIComponent(q) : ""));
+        const me = State.me;
+        $("#admin-users").innerHTML = r.users.map((u) => `
+            <div class="user-row">
+                <div class="avatar avatar-xs">${u.role === "super_admin" ? "👑" : u.role === "admin" ? "🛡️" : "👤"}</div>
+                <div class="grow"><b>${esc(u.display_name)} ${u.verified ? '<span style="color:var(--accent)">✔︎</span>' : ""}</b>
+                    <span class="sub">@${esc(u.username)} · ${esc(u.email)}</span></div>
+                ${u.account_status === "banned" ? '<span class="ban-tag">مسدود</span>' : ""}
+                <select class="chip-btn ad-role" data-id="${u.id}" ${me.role !== "super_admin" || u.role === "super_admin" ? "disabled" : ""}>
+                    <option value="user" ${u.role === "user" ? "selected" : ""}>عضو</option>
+                    <option value="admin" ${u.role === "admin" ? "selected" : ""}>مدیر</option>
+                </select>
+                <button class="chip-btn ad-ban${u.account_status === "banned" ? "" : " chip-danger"}" data-id="${u.id}" data-banned="${u.account_status === "banned"}">${u.account_status === "banned" ? "رفع مسدودی" : "مسدود"}</button>
+                <button class="chip-btn ad-reset" data-id="${u.id}" title="رمز موقت"><i data-lucide="key" class="icon i14"></i></button>
+                <button class="chip-btn ad-ver" data-id="${u.id}" data-v="${u.verified ? 1 : 0}" title="تیک آبی">✔︎</button>
+                <button class="chip-btn chip-danger ad-del" data-id="${u.id}" title="حذف"><i data-lucide="trash" class="icon i14"></i></button>
+            </div>`).join("") || '<p class="admin-empty">کاربری یافت نشد.</p>';
+        $$("#admin-users .ad-role").forEach((s) => s.addEventListener("change", async () => {
+            try { await api("PATCH", `/api/admin/users/${s.dataset.id}`, { role: s.value }); toast("نقش تغییر کرد.", "ok"); } catch (e) { toast(e.message, "err"); }
+        }));
+        $$("#admin-users .ad-ban").forEach((b) => b.addEventListener("click", async () => {
+            try { await api("POST", `/api/admin/users/${b.dataset.id}/ban?action=${b.dataset.banned === "true" ? "unban" : "ban"}`); toast("انجام شد.", "ok"); loadAdminUsers(q); } catch (e) { toast(e.message, "err"); }
+        }));
+        $$("#admin-users .ad-reset").forEach((b) => b.addEventListener("click", async () => {
+            try {
+                const x = await api("POST", `/api/admin/users/${b.dataset.id}/reset-password`);
+                openModal(`<h3>رمز موقت</h3><p class="code-box" style="margin-bottom:8px">${esc(x.temp_password)}</p><p class="sub" style="text-align:center;margin:0">فقط همین یک‌بار نمایش داده می‌شود.</p>`);
+            } catch (e) { toast(e.message, "err"); }
+        }));
+        $$("#admin-users .ad-ver").forEach((b) => b.addEventListener("click", async () => {
+            try { await api("POST", `/api/admin/users/${b.dataset.id}/verified?value=${b.dataset.v === "1" ? "0" : "1"}`); toast("انجام شد.", "ok"); loadAdminUsers(q); } catch (e) { toast(e.message, "err"); }
+        }));
+        $$("#admin-users .ad-del").forEach((b) => b.addEventListener("click", () => {
+            confirmModal("حذف کاربر", "کاربر و تمام داده‌هایش حذف می‌شود.", "حذف", async () => {
+                try { await api("DELETE", `/api/admin/users/${b.dataset.id}`); toast("حذف شد.", "ok"); loadAdminUsers(q); } catch (e) { toast(e.message, "err"); }
+            });
+        }));
+        refreshIcons($("#admin-users"));
+    } catch (e) { toast(e.message, "err"); }
+}
+function wireAdmin() {
+    try {
+        $("#btn-exit-admin").addEventListener("click", () => {
+            $("#admin-view").classList.add("hidden");
+            $("#chat-view").classList.remove("hidden");
+            refreshIcons();
+        });
+        $("#admin-search").addEventListener("input", debounce(() => loadAdminUsers($("#admin-search").value.trim()), 350));
+        $("#ad-bcast").addEventListener("click", () => {
+            openModal(`<h3>اعلان همگانی</h3>
+                <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+                    <input id="bc-title" class="field" placeholder="عنوان">
+                    <textarea id="bc-body" rows="3" class="field" placeholder="متن اعلان…"></textarea>
+                    <button id="bc-ok" class="btn btn-primary btn-block">ارسال به همه</button>
+                </div>`,
+                (box) => box.querySelector("#bc-ok").onclick = async () => {
+                    try { await api("POST", "/api/admin/broadcast", { title: box.querySelector("#bc-title").value, body: box.querySelector("#bc-body").value }); closeModal(); toast("اعلان ارسال شد.", "ok"); } catch (e) { toast(e.message, "err"); }
+                });
+        });
+        $("#ad-audit").addEventListener("click", async () => {
+            try {
+                const r = await api("GET", "/api/admin/audit?limit=100");
+                openModal(`<h3>گزارش رخدادها</h3>
+                    <div class="stack" style="display:flex;flex-direction:column;gap:6px;max-height:60dvh;overflow-y:auto">${r.logs.map((l) => `
+                        <div class="session-row" style="background:var(--field);border-radius:8px;font-size:11px">
+                            <div class="grow"><b>${esc(l.actor_name || l.actor_username || "?")}</b> — <span dir="ltr" style="color:var(--accent)">${esc(l.action)}</span>
+                            <span class="sub" dir="ltr" style="display:block">${esc(l.target_type)} · ${faDate(l.created_at)} ${faTime(l.created_at)}</span></div>
+                        </div>`).join("") || '<p class="sub">رخدادی ثبت نشده.</p>'}</div>`);
+            } catch (e) { toast(e.message, "err"); }
+        });
+        $("#ad-maint").addEventListener("click", () => toggleSystem("maintenance", "حالت نگهداری"));
+        $("#ad-lock").addEventListener("click", () => toggleSystem("reg_locked", "قفل ثبت‌نام"));
+        $("#ad-own").addEventListener("click", transferOwnershipModal);
+    } catch (e) { console.error("wireAdmin", e); }
+}
+function toggleSystem(flag, label) {
+    confirmModal(label, `${label} فعال شود؟`, "تغییر", async () => {
+        try { await api("POST", "/api/admin/system", { flag, on: true }); toast(`${label}: فعال`, "ok"); } catch (e) { toast(e.message, "err"); }
+    }, false);
+}
+function transferOwnershipModal() {
+    openModal(`<h3>انتقال مالکیت سامانه</h3>
+        <input id="own-q" class="field" placeholder="جستجوی نام کاربری…" style="margin-bottom:12px">
+        <div id="own-list" class="menu-list" style="max-height:288px;overflow-y:auto"></div>`, (box) => {
+        const paint = (users) => {
+            box.querySelector("#own-list").innerHTML = users.filter((u) => u.id !== (State.me && State.me.id)).map((u) =>
+                `<button class="ctx-item own-u" data-id="${u.id}"><i data-lucide="users" class="icon i16"></i>${esc(u.display_name)} <span dir="ltr" class="grow" style="color:var(--text-3);font-size:11px">@${esc(u.username)}</span></button>`).join("") || '<p class="sub">یافت نشد.</p>';
+            box.querySelectorAll(".own-u").forEach((b) => b.addEventListener("click", () => {
+                confirmModal("انتقال مالکیت سامانه", "تمام اختیارات مالک منتقل و شما مدیر می‌شوید.", "انتقال", async () => {
+                    try { await api("POST", "/api/admin/transfer-ownership", { user_id: b.dataset.id }); closeModal(); toast("مالکیت منتقل شد.", "ok"); } catch (e) { toast(e.message, "err"); }
+                }, false);
+            }));
+        };
+        box.querySelector("#own-q").addEventListener("input", debounce(async () => {
+            const q = box.querySelector("#own-q").value.trim();
+            if (q.length < 2) return;
+            try { const r = await api("GET", "/api/users/search?q=" + encodeURIComponent(q)); paint(r.users || []); } catch {}
+        }, 300));
+    });
+}
+
+/* ── Password show/hide toggle (login + register) ───────────── */
+function wirePasswordToggles() {
+    try {
+        const pairs = [["login-password", "login-eye"], ["reg-password", "reg-eye"]];
+        for (const [inputId, btnId] of pairs) {
+            const input = document.getElementById(inputId);
+            const btn = document.getElementById(btnId);
+            if (!input || !btn) continue;
+            btn.addEventListener("click", () => {
+                try {
+                    const show = input.type === "password";
+                    input.type = show ? "text" : "password";
+                    btn.innerHTML = `<i data-lucide="${show ? "eye-off" : "eye"}" class="icon i18"></i>`;
+                    btn.title = show ? "مخفی کردن رمز" : "نمایش رمز";
+                    refreshIcons(btn);
+                } catch (e) { console.error(e); }
+            });
+        }
+    } catch (e) { console.error("wirePasswordToggles", e); }
+}
+
+/* ── Theme system: Modern Dark / Glass / Clean Light ────────── */
+const THEMES = [
+    { id: "dark", label: "تم مدرن تیره", dot: "linear-gradient(135deg,#6366f1,#8b5cf6)", icon: "moon" },
+    { id: "glass", label: "تم شیشه‌ای", dot: "linear-gradient(135deg,#818cf8,#38bdf8)", icon: "layers" },
+    { id: "light", label: "تم روشن", dot: "linear-gradient(135deg,#2563eb,#93c5fd)", icon: "sun" },
+];
+
+function currentTheme() {
+    try { return localStorage.getItem("tika_theme") || "dark"; } catch { return "dark"; }
+}
+
+function applyTheme(id, persist = true) {
+    const theme = THEMES.find((t) => t.id === id) || THEMES[0];
+    document.documentElement.setAttribute("data-theme", theme.id);
+    try {
+        if (persist) localStorage.setItem("tika_theme", theme.id);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme.id === "light" ? "#f8fafc" : theme.id === "glass" ? "#070b14" : "#0f172a");
+    } catch {}
+    $$(".theme-opt").forEach((b) => b.classList.toggle("on", b.dataset.theme === theme.id));
+}
+
+function wireTheme() {
+    try {
+        applyTheme(currentTheme(), false);
+        $("#btn-theme").addEventListener("click", (e) => {
+            e.stopPropagation();
+            $$(".theme-tray").forEach((n) => n.remove());
+            const cur = currentTheme();
+            const tray = document.createElement("div");
+            tray.className = "theme-tray pop-in";
+            tray.innerHTML = THEMES.map((t) => `
+                <button type="button" class="theme-opt${t.id === cur ? " on" : ""}" data-theme="${t.id}">
+                    <span class="sw-dot" style="background:${t.dot}"></span>
+                    <i data-lucide="${t.icon}" class="icon i16 theme-icon"></i>
+                    <span>${t.label}</span>
+                    <i data-lucide="check" class="icon i16 theme-check"></i>
+                </button>`).join("");
+            document.body.appendChild(tray);
+            refreshIcons(tray);
+            tray.querySelectorAll(".theme-opt").forEach((b) => b.addEventListener("click", () => {
+                applyTheme(b.dataset.theme);
+                tray.remove();
+                toast("تم اعمال شد.", "ok");
+            }));
+            setTimeout(() => document.addEventListener("click", function once(ev) {
+                if (tray.contains(ev.target)) document.addEventListener("click", once, { once: true });
+                else tray.remove();
+            }, { once: true }), 60);
+        });
+    } catch (e) { console.error("wireTheme", e); }
+}
+
+/* ── Chrome wiring (sidebar, focus, debounced resize) ───────── */
+function wireChrome() {
+    try {
+        if (window.innerWidth < 768) closeSidebarMobile();
+        $("#btn-back").addEventListener("click", () => { openSidebarMobile(); });
+        $("#sidebar-scrim").addEventListener("click", () => { closeSidebarMobile(); });
+        window.addEventListener("focus", debounce(() => {
+            try {
+                if (State.currentRoom) { const last = State.msgsOrder[State.msgsOrder.length - 1]; if (last) sendReadUpTo(last); }
+                refreshRooms();
+            } catch {}
+        }, 300));
+        window.addEventListener("resize", debounce(() => {
+            try { if (window.innerWidth >= 768) closeSidebarMobile(); } catch {}
+        }, 200));
+        document.addEventListener("visibilitychange", () => {
+            try {
+                if (document.visibilityState === "visible" && State.currentRoom && (!State.ws || State.ws.readyState > 1)) connectWS();
+            } catch {}
+        });
+    } catch (e) { console.error("wireChrome", e); }
+}
+
+/* ── Misc + boot (crash-proof) ──────────────────────────────── */
+async function sweepLoop() {
+    if (!State.token) return;
+    try { await api("POST", "/api/sweep", undefined, { noKick: true }); } catch {}
+    setTimeout(sweepLoop, 30_000);
+}
+
+function boot() {
+    /* Every wiring is guarded — one failure must never blank the app */
+    try { wireTheme(); } catch (e) { console.error(e); }
+    try { wireAuth(); } catch (e) { console.error(e); }
+    try { wireComposer(); } catch (e) { console.error(e); }
+    try { wireVoice(); } catch (e) { console.error(e); }
+    try { wireSearch(); } catch (e) { console.error(e); }
+    try { wireNewRoom(); } catch (e) { console.error(e); }
+    try { wireRoomMenu(); } catch (e) { console.error(e); }
+    try { wireSettings(); } catch (e) { console.error(e); }
+    try { wireAdmin(); } catch (e) { console.error(e); }
+    try { wireChrome(); } catch (e) { console.error(e); }
+    try { wirePasswordToggles(); } catch (e) { console.error(e); }
+    refreshIcons();
+
+    (async () => {
+        if (State.token) {
+            try {
+                const r = await api("GET", "/api/me", undefined, { noKick: true });
+                State.me = r.user;
+                await enterApp();
+                return;
+            } catch (e) {
+                console.error("boot-auth", e);
+                try { localStorage.removeItem("tika_token"); localStorage.removeItem("tika_sid"); } catch {}
+                State.token = null;
+            }
+        }
+        showAuth();
+    })();
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+else boot();
+</script>
+
+
+
+</body>
+</html>
